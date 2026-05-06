@@ -50,10 +50,10 @@ class Event(db.Model):
             "title": self.title,
             "description": self.description,
             "date": self.date,
-            "location": {
-                "name": self.location_name,
-                "lat": self.latitude,
-                "lng": self.longitude
-            },
-            "organizer_id": self.organizer_id
+            "location_name": self.location_name,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "organizer_id": self.organizer_id,
+
+            "organizer_email": User.query.get(self.organizer_id).email if self.organizer_id else "Anonimo"
         }

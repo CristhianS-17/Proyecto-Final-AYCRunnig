@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
+import logo from "../assets/runbound-logo.png";
 
 export const Navbar = () => {
+    return (
+        <nav className="navbar">
+            <div className="navbar-logo">
+                <img src={logo} alt="RunBound Logo" />
+                <span className="run">Run</span><span className="bound">Bound</span>
 
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
+            </div>
+
+            <div className="nav-right">
+                <Link to="/map">Mapa</Link>
+                <button>Logout</button>
+            </div>
+        </nav>
+    );
 };
+

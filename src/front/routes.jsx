@@ -9,7 +9,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { MapView } from "./pages/MapView";
 import { EventDetail } from "./pages/EventDetail";
-import { OrganizerDashboard } from "./pages/OrganizerDashboard";
+import  OrganizerDashboard  from "./pages/OrganizerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
 

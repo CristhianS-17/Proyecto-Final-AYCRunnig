@@ -1,0 +1,63 @@
+.event-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid gray;
+}
+.event-form div {
+    margin-bottom: 15px;
+}
+
+.event-form input {
+    width: 100%;
+    padding: 10px;
+}
+
+.organizer-dashboard {
+    padding: 2rem;
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard-description {
+    color: gray;
+    font-size: 1.1rem;
+}
+
+.event-form-title {
+    font-size:1.8rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+.form-group textarea {
+     min-height: 120px;
+}
+.create-event-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.admin-list {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+.admin-list li {
+    margin-bottom: 0.5rem;
+}

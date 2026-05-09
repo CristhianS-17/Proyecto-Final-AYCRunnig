@@ -1,18 +1,35 @@
-.event-form {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid gray;
-}
-.event-form div {
-    margin-bottom: 15px;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
 }
 
-.event-form input {
-    width: 100%;
-    padding: 10px;
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.organizer-dashboard {
+.content {
+    flex: 1;
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: #F7F5F2;
+    padding: 0px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #F7F5F2;
+}
+
+/* === DASHBOARDS === */
+.organizer-dashboard,
+.admin-dashboard {
     padding: 2rem;
 }
 
@@ -26,8 +43,15 @@
     font-size: 1.1rem;
 }
 
+/* === EVENT FORM === */
+.event-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid gray;
+}
+
 .event-form-title {
-    font-size:1.8rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
 }
 
@@ -42,9 +66,11 @@
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
 .form-group textarea {
-     min-height: 120px;
+    min-height: 120px;
 }
+
 .create-event-button {
     padding: 0.8rem 1.5rem;
     border: none;
@@ -54,10 +80,22 @@
     cursor: pointer;
 }
 
+/* === ADMIN === */
 .admin-list {
     margin-top: 1rem;
     padding-left: 1.5rem;
 }
+
 .admin-list li {
     margin-bottom: 0.5rem;
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: #F7F5F2;
+    color: #1F1F1F;
+    padding: 25px 0;
+    text-align: center;
+    border-top: 2px solid #F7F5F2;
+    margin-top: 40px;
 }

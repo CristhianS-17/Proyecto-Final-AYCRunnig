@@ -7,9 +7,10 @@ export const AdminDashboard = () => {
                 Welcome to the Admin Dashboard
             </p>
 
-            <h2>Manager user and events</h2>
+            <h2>Manage users and events</h2>
+
             <ul className="admin-list">
-                <li>Manage User</li>
+                <li>Manage Users</li>
                 <li>Manage Events</li>
                 <li>Disable Accounts</li>
             </ul>

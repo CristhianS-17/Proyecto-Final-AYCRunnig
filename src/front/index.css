@@ -20,69 +20,68 @@ html, body {
 /* === NAVBAR === */
 .navbar {
     background-color: #F7F5F2; 
-    padding: 0px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #F7F5F2;
-}
+        padding: 0px 25px;
+            display: flex;
+                justify-content: space-between;
+                    align-items: center;
+                        border-bottom: 2px solid #F7F5F2;
+                        }
 
-.navbar-logo span {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #B8AA92; 
-    letter-spacing: 1px;
-}
+                        .navbar-logo span {
+                            font-size: 1.4rem;
+                                font-weight: 700;
+                                    color: #B8AA92; 
+                                        letter-spacing: 1px;
+                                        }
 
-.navbar a {
-    color: #1F1F1F;
-    text-decoration: none;
-    font-weight: 600;
-    margin-right: 20px;
-}
+                                        .navbar a {
+                                            color: #1F1F1F;
+                                                text-decoration: none;
+                                                    font-weight: 600;
+                                                        margin-right: 20px;
+                                                        }
 
-.navbar a:hover {
-    color: #B8AA92;
-}
+                                                        .navbar a:hover {
+                                                            color: #B8AA92;
+                                                            }
 
-.navbar button {
-    background: #B8AA92;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+                                                            .navbar button {
+                                                                background: #B8AA92;
+                                                                    border: none;
+                                                                        padding: 8px 16px;
+                                                                            border-radius: 6px;
+                                                                                cursor: pointer;
+                                                                                    font-weight: bold;
+                                                                                    }
 
-.navbar button:hover {
-    background: #dacab0;
-}
+                                                                                    .navbar button:hover {
+                                                                                        background: #dacab0;
+                                                                                        }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-}
+                                                                                        .navbar-logo {
+                                                                                            display: flex;
+                                                                                                align-items: center;
+                                                                                                }
 
-.navbar-logo img {
-    height: 120px;
-    width: auto;
-}
+                                                                                                .navbar-logo img {
+                                                                                                    height: 120px;
+                                                                                                        width: auto;
+                                                                                                        }
 
-.navbar-logo .run,
-.navbar-logo .bound {
-    font-weight: 700;
-    font-size: 1.4rem;
-}
+                                                                                                        .navbar-logo .run,
+                                                                                                        .navbar-logo .bound {
+                                                                                                            font-weight: 700;
+                                                                                                                font-size: 1.4rem;
+                                                                                                                }
 
-.navbar-logo .run {
-    color: #1F1F1F;
-}
+                                                                                                                .navbar-logo .run {
+                                                                                                                    color: #1F1F1F;
+                                                                                                                    }
 
-.navbar-logo .bound {
-    color: #B8AA92;
-    margin-left: -2px; 
-}
-
+                                                                                                                    .navbar-logo .bound {
+                                                                                                                        color: #B8AA92;
+                                                                                                                            margin-left: -2px; 
+                                                                                                                            }
 /* === Ingresar === */
 
 .btn-primary {
@@ -108,6 +107,18 @@ html, body {
 .btn-link:hover {
     color: #dacab0  !important;     
     text-decoration: underline;
+}
+
+/* === MAPA === */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 

@@ -1,143 +1,228 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap");
 
-
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600; /* SemiBold */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
 }
 
 .app-container {
-    min-height: 100vh;     
-    display: flex;
-    flex-direction: column; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
-    flex: 1;               
+  flex: 1;
 }
+
 /* === NAVBAR === */
 .navbar {
-    background-color: #F7F5F2; 
-        padding: 0px 25px;
-            display: flex;
-                justify-content: space-between;
-                    align-items: center;
-                        border-bottom: 2px solid #F7F5F2;
-                        }
+  background-color: #f7f5f2;
+  padding: 0px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f7f5f2;
+}
 
-                        .navbar-logo span {
-                            font-size: 1.4rem;
-                                font-weight: 700;
-                                    color: #B8AA92; 
-                                        letter-spacing: 1px;
-                                        }
+.navbar-logo span {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #b8aa92;
+  letter-spacing: 1px;
+}
 
-                                        .navbar a {
-                                            color: #1F1F1F;
-                                                text-decoration: none;
-                                                    font-weight: 600;
-                                                        margin-right: 20px;
-                                                        }
+.navbar a {
+  color: #1f1f1f;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 20px;
+}
 
-                                                        .navbar a:hover {
-                                                            color: #B8AA92;
-                                                            }
+.navbar a:hover {
+  color: #b8aa92;
+}
 
-                                                            .navbar button {
-                                                                background: #B8AA92;
-                                                                    border: none;
-                                                                        padding: 8px 16px;
-                                                                            border-radius: 6px;
-                                                                                cursor: pointer;
-                                                                                    font-weight: bold;
-                                                                                    }
+.navbar button {
+  background: #b8aa92;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-                                                                                    .navbar button:hover {
-                                                                                        background: #dacab0;
-                                                                                        }
+.navbar button:hover {
+  background: #dacab0;
+}
 
-                                                                                        .navbar-logo {
-                                                                                            display: flex;
-                                                                                                align-items: center;
-                                                                                                }
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
 
-                                                                                                .navbar-logo img {
-                                                                                                    height: 120px;
-                                                                                                        width: auto;
-                                                                                                        }
+.navbar-logo img {
+  height: 120px;
+  width: auto;
+}
 
-                                                                                                        .navbar-logo .run,
-                                                                                                        .navbar-logo .bound {
-                                                                                                            font-weight: 700;
-                                                                                                                font-size: 1.4rem;
-                                                                                                                }
+.navbar-logo .run,
+.navbar-logo .bound {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
 
-                                                                                                                .navbar-logo .run {
-                                                                                                                    color: #1F1F1F;
-                                                                                                                    }
+.navbar-logo .run {
+  color: #1f1f1f;
+}
 
-                                                                                                                    .navbar-logo .bound {
-                                                                                                                        color: #B8AA92;
-                                                                                                                            margin-left: -2px; 
-                                                                                                                            }
+.navbar-logo .bound {
+  color: #b8aa92;
+  margin-left: -2px;
+}
 /* === Ingresar === */
 
 .btn-primary {
-    background-color: #198754!important;
-    border-color: #198754 !important;
-    color: white !important; 
-    font-weight: 600;
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+  color: white !important;
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-    background-color: #157347 !important; 
-    border-color: #157347 !important;
+  background-color: #157347 !important;
+  border-color: #157347 !important;
 }
- 
 /* === Regístrate aquí === */
 
 .btn-link {
-    color: #198754 !important;     
-    font-weight: 600;
-    text-decoration: none;
+  color: #198754 !important;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .btn-link:hover {
-    color: #dacab0  !important;     
-    text-decoration: underline;
+  color: #dacab0 !important;
+  text-decoration: underline;
 }
 
 /* === MAPA === */
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
+/* === DASHBOARDS === */
+.organizer-dashboard,
+.admin-dashboard {
+  padding: 2rem;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-description {
+  color: gray;
+  font-size: 1.1rem;
+}
+
+/* === EVENT FORM === */
+.event-form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid gray;
+}
+
+.event-form-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-group textarea {
+  min-height: 120px;
+}
+
+.create-event-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+/* === ADMIN === */
+.admin-list {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.admin-list li {
+  margin-bottom: 0.5rem;
+}
 
 /* === FOOTER === */
 .footer {
-    background-color: #F7F5F2;
-    color: #1F1F1F;
-    padding: 25px 0;
-    text-align: center;
-    border-top: 2px solid #F7F5F2;
-    margin-top: 40px;
+  background-color: #f7f5f2;
+  color: #1f1f1f;
+  padding: 25px 0;
+  text-align: center;
+  border-top: 2px solid #f7f5f2;
+  margin-top: 40px;
 }
 
 .footer p {
-    margin: 0;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
 }
 
 .footer strong {
-    color: #B8AA92;
+  color: #b8aa92;
+}
+
+.admin-cards {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.admin-card {
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
+  flex: 1;
 }

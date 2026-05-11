@@ -12,6 +12,11 @@ export const EventForm = () => {
         console.log(location);
         console.log(date);
         console.log(description);
+
+        setEventName("")
+        setLocation("")
+        setDate("")
+        setDescription("")
     };
 
     return (

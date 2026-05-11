@@ -19,12 +19,93 @@ html, body {
 
 /* === NAVBAR === */
 .navbar {
-    background-color: #F7F5F2;
+    background-color: #F7F5F2; 
     padding: 0px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #F7F5F2;
+}
+
+.navbar-logo span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #B8AA92; 
+    letter-spacing: 1px;
+}
+
+.navbar a {
+    color: #1F1F1F;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.navbar a:hover {
+    color: #B8AA92;
+}
+
+.navbar button {
+    background: #B8AA92;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.navbar button:hover {
+    background: #dacab0;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 120px;
+    width: auto;
+}
+
+.navbar-logo .run,
+.navbar-logo .bound {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.navbar-logo .run {
+    color: #1F1F1F;
+}
+
+.navbar-logo .bound {
+    color: #B8AA92;
+    margin-left: -2px; 
+}
+/* === Ingresar === */
+
+.btn-primary {
+    background-color: #198754!important;
+    border-color: #198754 !important;
+    color: white !important; 
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #157347 !important; 
+    border-color: #157347 !important;
+}
+/* === Regístrate aquí === */
+
+.btn-link {
+    color: #198754 !important;     
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: #dacab0  !important;     
+    text-decoration: underline;
 }
 
 /* === DASHBOARDS === */
@@ -98,6 +179,16 @@ html, body {
     text-align: center;
     border-top: 2px solid #F7F5F2;
     margin-top: 40px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.footer strong {
+    color: #B8AA92;
 }
 
 .admin-cards {

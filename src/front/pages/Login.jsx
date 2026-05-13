@@ -78,6 +78,16 @@ export const Login = () => {
 
                 <button className="btn btn-primary w-100">Ingresar</button>
 
+                <div className="text-center mt-2">
+                    <button
+                        type="button"
+                        className="btn btn-link"
+                        onClick={() => navigate("/forgot-password")}
+                    >
+                        ¿Has olvidado tu contraseña?
+                    </button>
+                </div>
+
                 <div className="text-center mt-3">
                     <p>¿No tienes cuenta?</p>
                     <button

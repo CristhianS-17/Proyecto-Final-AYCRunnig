@@ -6,6 +6,7 @@ body {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
+   background-color: #f7f5f2;
   
 }
 
@@ -146,6 +147,21 @@ body {
 
 .btn-register:hover {
     background: #333333;
+}
+
+/* === LOGIN HOME === */
+
+.btn-beige {
+  background: #B8AA92;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn-beige:hover {
+  background: #dacab0;
 }
 
 /* === Ingresar === */

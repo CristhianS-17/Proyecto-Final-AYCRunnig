@@ -21,10 +21,11 @@ export const Navbar = () => {
 
                 <div className="ml-auto">
                     {!isLoggedIn && (
-                        <Link to="/login">
+                        <Link to="/login" className="btn-beige">
                             Login
                         </Link>
                     )}
+
                     {isLoggedIn && (
                         <>
                             <Link to="/map">Mapa</Link>

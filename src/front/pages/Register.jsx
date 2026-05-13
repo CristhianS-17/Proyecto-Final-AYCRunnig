@@ -23,7 +23,7 @@ export const Register = () => {
         e.preventDefault();
 
         try {
-            const resp = await fetch(process.env.BACKEND_URL + "/register", {
+            const resp = await fetch(import.meta.env.BACKEND_URL + "/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form)

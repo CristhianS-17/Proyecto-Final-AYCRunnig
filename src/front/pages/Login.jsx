@@ -19,9 +19,7 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                "https://solid-space-adventure-g4j6wx465xg72p7gg-3001.app.github.dev/api/login",
-                {
+            const response = await fetch(import.meta.env.BACKEND_URL + "/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

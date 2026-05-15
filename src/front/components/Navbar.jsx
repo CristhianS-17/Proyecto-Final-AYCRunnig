@@ -16,7 +16,6 @@ export const Navbar = () => {
             <div className="container">
                 <Link className="navbar-logo" to="/">
                     <img src={logo} alt="RunBound Logo" />
-                    <span className="run">Run</span><span className="bound">Bound</span>
                 </Link>
 
                 <div className="ml-auto">

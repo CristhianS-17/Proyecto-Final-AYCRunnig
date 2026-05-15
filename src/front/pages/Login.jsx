@@ -19,9 +19,7 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                "https://solid-space-adventure-g4j6wx465xg72p7gg-3001.app.github.dev/api/login",
-                {
+            const response = await fetch(import.meta.env.BACKEND_URL + "/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -77,6 +75,16 @@ export const Login = () => {
                 />
 
                 <button className="btn btn-primary w-100">Ingresar</button>
+
+                <div className="text-center mt-2">
+                    <button
+                        type="button"
+                        className="btn btn-link"
+                        onClick={() => navigate("/forgot-password")}
+                    >
+                        ¿Has olvidado tu contraseña?
+                    </button>
+                </div>
 
                 <div className="text-center mt-3">
                     <p>¿No tienes cuenta?</p>

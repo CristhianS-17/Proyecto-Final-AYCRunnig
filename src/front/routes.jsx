@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import { Layout } from "./pages/Layout";
+import { Home } from "./pages/Home.jsx";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { MapView } from "./pages/MapView";
@@ -15,14 +16,24 @@ import { AdminDashboard } from "./pages/AdminDashboard";
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
-            <Route index element={<Login />} />
+
+            {/* HOME PÁGINA PRINCIPAL */}
+            <Route index element={<Home />} />
+
+            {/* LOGIN */}
+            <Route path="login" element={<Login />} />
+
+            {/* REGISTER */}
             <Route path="register" element={<Register />} />
 
+            {/* MAPA Y EVENTOS */}
             <Route path="map" element={<MapView />} />
             <Route path="event/:id" element={<EventDetail />} />
 
+            {/* PANELES */}
             <Route path="organizer" element={<OrganizerDashboard />} />
             <Route path="admin" element={<AdminDashboard />} />
+
         </Route>
     )
 );

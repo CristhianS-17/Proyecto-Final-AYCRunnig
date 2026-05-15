@@ -6,6 +6,8 @@ body {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
+   background-color: #f7f5f2;
+  
 }
 
 .app-container {
@@ -20,7 +22,7 @@ body {
 
 /* === NAVBAR === */
 .navbar {
-  background-color: #f7f5f2;
+  background-color: #ffffff !important;
   padding: 0px 25px;
   display: flex;
   justify-content: space-between;
@@ -83,6 +85,85 @@ body {
   color: #b8aa92;
   margin-left: -2px;
 }
+
+/* === HOME === */
+
+.home-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #f7f5f2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 120px; /* para no chocar con el navbar */
+}
+
+.home-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1F1F1F;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.home-title span {
+    color: #B8AA92;
+}
+
+.home-subtitle {
+    font-size: 1.2rem;
+    color: #6A6A6A;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-login,
+.btn-register {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-login {
+    background: #B8AA92;
+}
+
+.btn-login:hover {
+    background: #dacab0;
+}
+
+.btn-register {
+    background: #1F1F1F;
+}
+
+.btn-register:hover {
+    background: #333333;
+}
+
+/* === LOGIN HOME === */
+
+.btn-beige {
+  background: #B8AA92;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn-beige:hover {
+  background: #dacab0;
+}
+
 /* === Ingresar === */
 
 .btn-primary {
@@ -199,12 +280,12 @@ body {
 
 /* === FOOTER === */
 .footer {
-  background-color: #f7f5f2;
+  background-color: #ffffff;
   color: #1f1f1f;
   padding: 25px 0;
   text-align: center;
   border-top: 2px solid #f7f5f2;
-  margin-top: 40px;
+  margin-top: 40;
 }
 
 .footer p {

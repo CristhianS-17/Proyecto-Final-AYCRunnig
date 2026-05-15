@@ -5,6 +5,11 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
+        nombre: "",
+        apellido: "",
+        fecha_nacimiento: "",
+        sexo: "",
+        residencia: "",
         email: "",
         password: "",
         role: "runner"
@@ -18,7 +23,7 @@ export const Register = () => {
         e.preventDefault();
 
         try {
-            const resp = await fetch(process.env.BACKEND_URL + "/register", {
+            const resp = await fetch(import.meta.env.BACKEND_URL + "/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form)
@@ -44,6 +49,50 @@ export const Register = () => {
             <h1>Registro</h1>
 
             <form onSubmit={handleSubmit} className="mt-4">
+
+                <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    className="form-control mb-3"
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="apellido"
+                    placeholder="Apellido"
+                    className="form-control mb-3"
+                    onChange={handleChange}
+                />
+
+                <label className="form-label">Fecha de nacimiento</label>
+                <input
+                    type="date"
+                    name="fecha_nacimiento"
+                    className="form-control mb-3"
+                    onChange={handleChange}
+                />
+
+                <select
+                    name="sexo"
+                    className="form-control mb-3"
+                    onChange={handleChange}
+                >
+                    <option value="">Selecciona tu sexo</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="otro">Otro</option>
+                </select>
+
+                <input
+                    type="text"
+                    name="residencia"
+                    placeholder="Lugar de residencia"
+                    className="form-control mb-3"
+                    onChange={handleChange}
+                />
+
                 <input
                     type="email"
                     name="email"

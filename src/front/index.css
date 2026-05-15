@@ -179,9 +179,12 @@ body {
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 8px;
-  background-color: #2563eb;
+  background-color: #198754;
   color: white;
   cursor: pointer;
+}
+.create-event-button:hover {
+    background-color: #157347;
 }
 
 /* === ADMIN === */

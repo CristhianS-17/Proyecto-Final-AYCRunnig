@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Event
+from api.models import db, User, Event, Inscription  # <--- Añadido Inscription aquí
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
@@ -117,7 +117,6 @@ def update_event(event_id):
         return jsonify({"msg": "No tienes permiso para editar este evento"}), 403
 
     body = request.get_json()
-
     if 'title' in body:
         event.title = body['title']
     if 'description' in body:
@@ -150,3 +149,67 @@ def delete_event(event_id):
     db.session.delete(event)
     db.session.commit()
     return jsonify({"msg": "Evento eliminado correctamente"}), 200
+
+
+@api.route('/subscribe', methods=['POST'])
+@jwt_required()
+def subscribe_to_event():
+    current_user_id = get_jwt_identity()
+    body = request.get_json()
+    event_id = body.get("event_id")
+
+    if not event_id:
+        return jsonify({"msg": "Falta el ID del evento"}), 400
+
+    event = Event.query.get(event_id)
+    if not event:
+        return jsonify({"msg": "El evento no existe"}), 404
+
+    already_subscribed = Inscription.query.filter_by(
+        user_id=current_user_id,
+        event_id=event_id
+    ).first()
+
+    if already_subscribed:
+        return jsonify({"msg": "Ya estás inscrito en esta carrera"}), 400
+
+    try:
+        new_inscription = Inscription(
+            user_id=current_user_id,
+            event_id=event_id
+        )
+        db.session.add(new_inscription)
+        db.session.commit()
+        return jsonify({"msg": "Inscripción completada con éxito"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al procesar la inscripción", "error": str(e)}), 500
+
+
+@api.route('/unsubscribe/<int:event_id>', methods=['DELETE'])
+@jwt_required()
+def unsubscribe(event_id):
+    current_user_id = get_jwt_identity()
+
+    inscription = Inscription.query.filter_by(
+        user_id=current_user_id,
+        event_id=event_id
+    ).first()
+
+    if not inscription:
+        return jsonify({"msg": "No estás inscrito en este evento"}), 404
+
+    db.session.delete(inscription)
+    db.session.commit()
+    return jsonify({"msg": "Inscripción cancelada correctamente"}), 200
+
+
+@api.route('/my-inscriptions', methods=['GET'])
+@jwt_required()
+def get_my_inscriptions():
+    current_user_id = get_jwt_identity()
+
+    user_inscriptions = Inscription.query.filter_by(
+        user_id=current_user_id).all()
+
+    return jsonify([ins.serialize() for ins in user_inscriptions]), 200

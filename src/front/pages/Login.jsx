@@ -19,7 +19,7 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(import.meta.env.BACKEND_URL + "/login", {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

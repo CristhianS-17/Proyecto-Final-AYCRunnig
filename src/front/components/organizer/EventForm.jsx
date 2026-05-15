@@ -20,7 +20,7 @@ export const EventForm = () => {
     }
         const token = localStorage.getItem("token");
         console.log(token);
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/event",{
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/event",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

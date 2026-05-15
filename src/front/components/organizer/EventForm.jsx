@@ -7,7 +7,8 @@ export const EventForm = () => {
     const [description, setDescription] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
-    const handleSubmit = (e) => {
+    const [message, setMessage] = useState("")
+    const handleSubmit =  async (e) => {
         e.preventDefault();
     const newEvent = {
         title: eventName,
@@ -17,25 +18,39 @@ export const EventForm = () => {
         longitude: longitude,
         description: description,
     }
-        console.log(newEvent)
-        console.log(eventName);
-        console.log(location);
-        console.log(date);
-        console.log(latitude);
-        console.log(longitude);
-        console.log(description);
-
-        setEventName("")
-        setLocation("")
-        setDate("")
-        setLatitude("")
-        setLongitude("")
-        setDescription("")
+        const token = localStorage.getItem("token");
+        console.log(token);
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/event",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer" + token,
+            },
+            body: JSON.stringify(newEvent),
+        });
+        console.log(response);
+        if (response.ok) {
+            setMessage("Event created successfully");
+            setEventName("")
+            setLocation("")
+            setDate("")
+            setLatitude("")
+            setLongitude("")
+            setDescription("")
+        } else {
+            setMessage("You must login as organizer")
+        }
+        console.log(response);      
     };
 
     return (
         <div className="event-form">
             <h2 className="event-form-title">Create Event</h2>
+            {message && (
+                <div className="event-message">
+                    {message}
+                </div>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">

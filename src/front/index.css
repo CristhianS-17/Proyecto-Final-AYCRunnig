@@ -6,7 +6,7 @@ body {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-   background-color: #f7f5f2;
+  background-color: transparent;
   
 }
 
@@ -18,6 +18,7 @@ body {
 
 .content {
   flex: 1;
+
 }
 
 /* === NAVBAR === */
@@ -83,21 +84,39 @@ body {
 /* === HOME === */
 
 .home-container {
-    height: 100vh;
+    min-height: calc(100vh - 120px);
     width: 100%;
-    background-color: #f7f5f2;
+    background-image: url("./assets/fondo-home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding-top: 120px; /* para no chocar con el navbar */
+    padding-top: 120px;
+    position: relative;
+}
+
+.home-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35); /* oscurece un poco */
+    z-index: 1;
+}
+
+.home-container > * {
+    position: relative;
+    z-index: 2;
 }
 
 .home-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1F1F1F;
+    color: #ffffff;
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
@@ -108,7 +127,7 @@ body {
 
 .home-subtitle {
     font-size: 1.2rem;
-    color: #6A6A6A;
+    color: #ffffff;
     max-width: 500px;
     margin-bottom: 30px;
 }
@@ -117,8 +136,9 @@ body {
 }
 
 .home-buttons {
+    margin-top: 40px;
     display: flex;
-    gap: 20px;
+    justify-content: center;
 }
 
 .btn-login,
@@ -128,6 +148,7 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: white;
+    background: #1F1F1F;
 }
 
 .btn-login {
@@ -136,10 +157,6 @@ body {
 
 .btn-login:hover {
     background: #dacab0;
-}
-
-.btn-register {
-    background: #1F1F1F;
 }
 
 .btn-register:hover {
@@ -158,13 +175,13 @@ body {
 .home-quote {
     max-width: 400px;
     font-size: 1.2rem;
-    color: #1F1F1F;
+    color: #ffffff;
     text-align: left;
     line-height: 1.4;
 }
 
 .home-quote strong {
-    color: #B8AA92;
+    color: #ffffff;
 }
 
 .home-image img {
@@ -302,7 +319,7 @@ body {
 
 /* === FOOTER === */
 .footer {
-  background-color: #ffffff;
+  background-color: transparent;
   color: #1f1f1f;
   padding: 25px 0;
   text-align: center;

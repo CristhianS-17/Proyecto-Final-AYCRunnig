@@ -143,6 +143,13 @@ body {
   display: flex;
   justify-content: center;
   padding: 18px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    padding: 18px
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
 }
 
 .btn-login,
@@ -601,6 +608,7 @@ body {
 
 .footer {
   background-color: #5a5959;
+  background-color: transparent;
   color: #1f1f1f;
   padding: 25px 0;
   text-align: center;

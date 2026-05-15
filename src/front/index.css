@@ -95,6 +95,20 @@ body {
   align-items: center;
   padding-top: 120px;
   position: relative;
+    flex: 1;
+    min-height: 100vh;
+    min-height: calc(100vh - 120px);
+    width: 100%;
+    background-image: url("./assets/fondo-home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px;
+    position: relative;
 }
 
 .home-container::before {
@@ -141,6 +155,13 @@ body {
   display: flex;
   justify-content: center;
   padding: 18px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    padding: 18px
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
 }
 
 .btn-login,
@@ -471,6 +492,7 @@ body {
 /* === FOOTER === */
 .footer {
   background-color: #5a5959;
+  background-color: transparent;
   color: #1f1f1f;
   padding: 25px 0;
   text-align: center;

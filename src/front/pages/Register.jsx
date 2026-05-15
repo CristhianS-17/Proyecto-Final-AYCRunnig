@@ -23,6 +23,7 @@ export const Register = () => {
         e.preventDefault();
 
         try {
+            console.log("URL de mi API:", import.meta.env.VITE_BACKEND_URL);
             const resp = await fetch(import.meta.env.BACKEND_URL + "/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

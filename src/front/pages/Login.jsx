@@ -43,8 +43,8 @@ export const Login = () => {
             localStorage.setItem("role", data.role);
 
             // Redirección por rol
+            if (data.role === "runner") navigate("/");
             if (data.role === "organizer") navigate("/organizer");
-            if (data.role === "runner") navigate("/map");
 
         } catch (error) {
             setMessage("Error de conexión con el servidor");

@@ -7,6 +7,7 @@ import {
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home.jsx";
 import { Login } from "./pages/Login";
+import { Profile } from "./pages/Profile";
 import { Register } from "./pages/Register";
 import { MapView } from "./pages/MapView";
 import { EventDetail } from "./pages/EventDetail";
@@ -25,6 +26,10 @@ export const router = createBrowserRouter(
 
             {/* REGISTER */}
             <Route path="register" element={<Register />} />
+
+            {/* PROFILE */}
+            <Route path="/profile" element={<Profile />} />
+
 
             {/* MAPA Y EVENTOS */}
             <Route path="map" element={<MapView />} />

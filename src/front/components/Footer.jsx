@@ -2,7 +2,7 @@ export const Footer = () => {
     return (
         <footer className="footer">
             <p>
-                <strong>RunBound</strong> © 2024 — Corre. Supérate. Conecta.
+                <strong>Run</strong><span className="bound">Bound</span> © 2024 — Corre. Supérate. Conecta.
             </p>
         </footer>
     );

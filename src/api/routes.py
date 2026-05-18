@@ -3,6 +3,7 @@ from api.models import db, User, Event, Inscription
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -11,9 +12,6 @@ CORS(api)
 @api.route('/register', methods=['POST'])
 def handle_register():
     body = request.get_json()
-
-    print("DATOS RECIBIDOS:", body)
-
     if body is None:
         return jsonify({"msg": "Cuerpo del mensaje vacío"}), 400
 
@@ -30,7 +28,9 @@ def handle_register():
 
     try:
 
-        new_user = User(email=email, password=password,
+        secure_password = generate_password_hash(password)
+
+        new_user = User(email=email, password=secure_password,
                         role=role, is_active=True)
         db.session.add(new_user)
         db.session.commit()
@@ -49,8 +49,9 @@ def handle_login():
     email = body.get("email")
     password = body.get("password")
 
-    user = User.query.filter_by(email=email, password=password).first()
-    if user is None:
+    user = User.query.filter_by(email=email).first()
+
+    if user is None or not check_password_hash(user.password, password):
         return jsonify({"msg": "Credenciales incorrectas"}), 401
 
     access_token = create_access_token(identity=str(

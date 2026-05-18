@@ -24,7 +24,7 @@ export const Profile = () => {
                     headers: {
                         "Content-Type": "application/json",
                         // 🔑 ¡AQUÍ ESTÁ LA MAGIA! Le enviamos el pasaporte a Python
-                        "Authorization": `Bearer ${token}`
+                        "Authorization": `Bearer ${token}` 
                     }
                 });
 
@@ -59,7 +59,7 @@ export const Profile = () => {
                 <p><strong>Email registrado:</strong> {user.email}</p>
                 <p><strong>Rol en la app:</strong> <span className="badge bg-primary">{user.role}</span></p>
                 <p><strong>Estado de cuenta:</strong> {user.is_active ? "🟢 Activa" : "🔴 Inactiva"}</p>
-
+                
                 {/* Si vuestro serialize devuelve las inscripciones, podéis ver cuántas lleva */}
                 <p><strong>Carreras guardadas:</strong> {user.my_inscriptions?.length || 0}</p>
 

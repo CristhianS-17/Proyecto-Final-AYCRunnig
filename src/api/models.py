@@ -16,6 +16,12 @@ class User(db.Model):
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True)
     role: Mapped[str] = mapped_column(
         String(20), nullable=False, default="runner")
+    
+    
+    first_name: Mapped[str] = mapped_column(String(80), nullable=True)
+    last_name: Mapped[str] = mapped_column(String(80), nullable=True)
+    gender: Mapped[str] = mapped_column(String(20), nullable=True)      
+    residence: Mapped[str] = mapped_column(String(120), nullable=True)   
 
     events: Mapped[List["Event"]] = relationship(back_populates="organizer")
 
@@ -28,6 +34,11 @@ class User(db.Model):
             "email": self.email,
             "role": self.role,
             "is_active": self.is_active,
+            # 🔥 Campos serializados para el Frontend
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "gender": self.gender,
+            "residence": self.residence,
             "my_inscriptions": [ins.event_id for ins in self.inscriptions]
         }
 

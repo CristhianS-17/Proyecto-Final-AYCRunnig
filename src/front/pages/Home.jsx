@@ -15,19 +15,20 @@ export const Home = () => {
                 Explora eventos deportivos, encuentra tu próxima carrera y sigue tu progreso en el mapa interactivo.
             </p>
 
+
             <div className="home-quote-section">
+
                 <div className="home-quote">
                     <p>
-                        "En atletismo las piernas no son lo más importante,
-                        lo importante es el corazón y la mente"
-                        <br />
-                        <strong>— Eliud Kipchoge</strong>
+                        "En atletismo las piernas no son lo más importante, lo importante es el corazón y la mente."
+                        <br />— Eliud Kipchoge
                     </p>
                 </div>
 
                 <div className="home-image">
-                    <img src={atleta} alt="Atleta" />
+                    <img src={atleta} alt="running" />
                 </div>
+
             </div>
 
             <div className="home-buttons">

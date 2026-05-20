@@ -45,7 +45,7 @@ export const Register = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 register-page">
             <h1>Registro</h1>
 
             <form onSubmit={handleSubmit} className="mt-4">
@@ -111,7 +111,7 @@ export const Register = () => {
 
                 <select
                     name="role"
-                    className="form-control mb-3"
+                    className="form-control mb-5"
                     onChange={handleChange}
                 >
                     <option value="runner">Atleta</option>

@@ -30,6 +30,7 @@ export const Navbar = () => {
                             <Link to="/map">Mapa</Link>
                             <Link to="/organizer">Organizer</Link>
                             <Link to="/admin">Admin</Link>
+                            <Link to="/profile">Perfil</Link>
 
                             <button className="btn btn-danger btn-sm"onClick={handleLogout}>
                                 Logout

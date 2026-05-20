@@ -404,9 +404,12 @@ body {
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 8px;
-  background-color: #2563eb;
+  background-color: #198754;
   color: white;
   cursor: pointer;
+}
+.create-event-button:hover {
+    background-color: #157347;
 }
 
 /* === ADMIN === */
@@ -450,4 +453,72 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px rgba(0, 0, 0, 0.1);
   flex: 1;
+}
+
+/* === Event Form Message === */
+.event-message {
+  background-color: #198754;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+ /* === organizer event cards === */
+
+ .event-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+  margin-top: 10px;
+  color: #222;
+}
+.event-card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* == Event card buttons ==*/
+.event-card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+.event-card-buttons button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.event-card-buttons button:first-child {
+  background-color: #0d6efd;
+  color: white;
+}
+.event-card-buttons button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+/* === Event Form Buttons === */
+
+.event-form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cancel-edit-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
 }

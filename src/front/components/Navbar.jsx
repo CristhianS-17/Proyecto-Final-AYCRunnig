@@ -29,8 +29,6 @@ export const Navbar = () => {
 
                     <Link to="/">Home</Link>
 
-                    <Link to="/map">Map</Link>
-
                     {!isLoggedIn && (
                         <>
 

@@ -356,7 +356,7 @@ body {
   }
 }
 
-/* === DASHBOARDS === */
+/* === DASHBOARDS (Y) === */
 .organizer-dashboard,
 .admin-dashboard {
   padding: 2rem;
@@ -372,7 +372,7 @@ body {
   font-size: 1.1rem;
 }
 
-/* === EVENT FORM === */
+/* === EVENT FORM  (Y) === */
 .event-form {
   margin-top: 20px;
   padding: 20px;
@@ -455,7 +455,7 @@ body {
   flex: 1;
 }
 
-/* === Event Form Message === */
+/* === Event Form Message  (Y) === */
 .event-message {
   background-color: #198754;
   color: white;
@@ -465,7 +465,7 @@ body {
   text-align: center;
   font-weight: 600;
 }
- /* === organizer event cards === */
+ /* === organizer event cards (Y) === */
 
  .event-card {
     background-color: #ffffff;
@@ -484,7 +484,7 @@ body {
   color: #555;
 }
 
-/* == Event card buttons ==*/
+/* == Event card buttons (Y) ==*/
 .event-card-buttons {
   display: flex;
   gap: 10px;
@@ -505,7 +505,7 @@ body {
   background-color: #dc3545;
   color: white;
 }
-/* === Event Form Buttons === */
+/* === Event Form Buttons (Y) === */
 
 .event-form-buttons {
     display: flex;
@@ -521,4 +521,27 @@ body {
     color: white;
     cursor: pointer;
     font-weight: 600;
+}
+
+/* === Select Location Button (Y) === */
+.select-location-button {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #0d6efd;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.select-location-button:hover {
+  background-color: #0b5ed7;
+}
+/* === Map Placeholder (Y) === */
+.map-placeholder {
+  margin-top: 15px;
+  height: 300px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 // Fix para que los iconos de Leaflet se vean bien en React
 delete L.Icon.Default.prototype._getIconUrl;
+
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
@@ -14,15 +15,23 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-// Datos falsos de eventos
-const fakeEvents = [
-  { id: 1, name: "Maratón de Barcelona", lat: 41.3874, lng: 2.1686, date: "2024-03-10" },
-  { id: 2, name: "Maratón de Madrid", lat: 40.4168, lng: -3.7038, date: "2024-04-28" },
-  { id: 3, name: "Maratón de Valencia", lat: 39.4699, lng: -0.3763, date: "2024-12-01" },
-];
-
 export function MapView() {
+  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const getEvents = async () => {
+    const response = await fetch(
+      import.meta.env.VITE_BACKEND_URL + "/events"
+    );
+
+    const data = await response.json();
+
+    setEvents(data);
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <div style={{ height: "100vh", width: "100%", marginTop: "30px" }}>
@@ -38,10 +47,13 @@ export function MapView() {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {fakeEvents.map((event) => (
+        {events.map((event) => (
           <Marker
             key={event.id}
-            position={[event.lat, event.lng]}
+            position={[
+              Number(event.latitude),
+              Number(event.longitude)
+            ]}
             eventHandlers={{
               click: () => setSelectedEvent(event),
               mouseover: (e) => e.target.openPopup(),
@@ -49,7 +61,9 @@ export function MapView() {
             }}
           >
             <Popup>
-              <strong>{event.name}</strong>
+              <strong>{event.title}</strong>
+              <br />
+              {event.location_name}
               <br />
               {event.date}
             </Popup>
@@ -57,7 +71,6 @@ export function MapView() {
         ))}
       </MapContainer>
 
-      {/* Modal mejorado */}
       {selectedEvent && (
         <div
           style={{
@@ -86,8 +99,19 @@ export function MapView() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <h2>{selectedEvent.name}</h2>
-            <p>Fecha: {selectedEvent.date}</p>
+            <h2>{selectedEvent.title}</h2>
+
+            <p>
+              <strong>Location:</strong> {selectedEvent.location_name}
+            </p>
+
+            <p>
+              <strong>Date:</strong> {selectedEvent.date}
+            </p>
+
+            <p>
+              <strong>Description:</strong> {selectedEvent.description}
+            </p>
 
             <button
               style={{
@@ -105,7 +129,7 @@ export function MapView() {
               }}
             >
               Ver detalles
-            </button>
+            </button>                     
           </div>
         </div>
       )}

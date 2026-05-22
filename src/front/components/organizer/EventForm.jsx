@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 export const EventForm = ({
     editingEvent,
     getEvents,
     setEditingEvent
 }) => {
-
     const [eventName, setEventName] = useState("");
     const [location, setLocation] = useState("");
     const [date, setDate] = useState("");
@@ -13,6 +15,25 @@ export const EventForm = ({
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
     const [message, setMessage] = useState("");
+    const [showMap, setShowMap] = useState(false);
+
+    const LocationSelector = () => {
+
+        useMapEvents({
+            click(e) {
+
+                setLatitude(e.latlng.lat);
+                setLongitude(e.latlng.lng);
+
+            },
+        });
+
+        return latitude && longitude && (
+            <Marker position={[latitude, longitude]} />
+        );
+    };
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (editingEvent) {
@@ -153,31 +174,46 @@ export const EventForm = ({
                 </div>
 
                 <div className="form-group">
-                    <label>Latitude</label>
+                    <label>Event location on map</label>
 
-                    <input
-                        type="number"
-                        placeholder="Latitude"
-                        value={latitude}
-                        onChange={(e) => {
-                            setLatitude(e.target.value);
-                            setMessage("");
-                        }}
-                    />
-                </div>
+                    <button
+                        type="button"
+                        className="select-location-button"
+                        onClick={() => setShowMap(!showMap)}                    >
+                        Select location on map
+                    </button>
 
-                <div className="form-group">
-                    <label>Longitude</label>
+                    <p>
+                        <p>
+                            {latitude !== "" && longitude !== ""
+                                ? `Location selected: ${Number(latitude).toFixed(5)}, ${Number(longitude).toFixed(5)}`
+                                : "No location selected"}
+                        </p>
+                    </p>
+                    {showMap && (
+                        <div className="map-placeholder">
+                            {showMap && (
+                                <div className="map-placeholder">
 
-                    <input
-                        type="number"
-                        placeholder="Longitude"
-                        value={longitude}
-                        onChange={(e) => {
-                            setLongitude(e.target.value);
-                            setMessage("");
-                        }}
-                    />
+                                    <MapContainer
+                                        center={[40.4168, -3.7038]}
+                                        zoom={6}
+                                        style={{ height: "100%", width: "100%" }}
+                                    >
+
+                                        <TileLayer
+                                            attribution='&copy; OpenStreetMap contributors'
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+
+                                        <LocationSelector />
+
+                                    </MapContainer>
+
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div className="form-group">

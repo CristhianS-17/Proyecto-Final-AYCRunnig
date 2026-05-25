@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -11,6 +10,9 @@ export const EventForm = ({
     const [eventName, setEventName] = useState("");
     const [location, setLocation] = useState("");
     const [date, setDate] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [registrationDeadline, setRegistrationDeadline] = useState("");
     const [description, setDescription] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
@@ -18,28 +20,26 @@ export const EventForm = ({
     const [showMap, setShowMap] = useState(false);
 
     const LocationSelector = () => {
-
         useMapEvents({
             click(e) {
-
                 setLatitude(e.latlng.lat);
                 setLongitude(e.latlng.lng);
-
             },
         });
 
-        return latitude && longitude && (
+        return latitude !== "" && longitude !== "" ? (
             <Marker position={[latitude, longitude]} />
-        );
+        ) : null;
     };
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (editingEvent) {
             setEventName(editingEvent.title || "");
             setLocation(editingEvent.location_name || "");
             setDate(editingEvent.date || "");
+            setStartTime(editingEvent.start_time || "");
+            setEndTime(editingEvent.end_time || "");
+            setRegistrationDeadline(editingEvent.registration_deadline || "");
             setLatitude(editingEvent.latitude || "");
             setLongitude(editingEvent.longitude || "");
             setDescription(editingEvent.description || "");
@@ -54,6 +54,9 @@ export const EventForm = ({
             !eventName ||
             !location ||
             !date ||
+            !startTime ||
+            !endTime ||
+            !registrationDeadline ||
             !latitude ||
             !longitude ||
             !description
@@ -78,6 +81,9 @@ export const EventForm = ({
             location_name: location,
             latitude: latitude,
             longitude: longitude,
+            start_time: startTime,
+            end_time: endTime,
+            registration_deadline: registrationDeadline,
             description: description,
         };
 
@@ -107,6 +113,9 @@ export const EventForm = ({
             setEventName("");
             setLocation("");
             setDate("");
+            setStartTime("");
+            setEndTime("");
+            setRegistrationDeadline("");
             setLatitude("");
             setLongitude("");
             setDescription("");
@@ -122,7 +131,7 @@ export const EventForm = ({
     return (
         <div className="event-form">
             <h2 className="event-form-title">
-                {editingEvent ? "Edit Event" : "Create Event"}
+                {editingEvent ? "Editar Evento" : "Crear Evento"}
             </h2>
 
             {message && (
@@ -133,11 +142,11 @@ export const EventForm = ({
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Event Name</label>
+                    <label>Nombre del evento</label>
 
                     <input
                         type="text"
-                        placeholder="Event name"
+                        placeholder="Nombre del evento"
                         value={eventName}
                         onChange={(e) => {
                             setEventName(e.target.value);
@@ -147,11 +156,11 @@ export const EventForm = ({
                 </div>
 
                 <div className="form-group">
-                    <label>Location</label>
+                    <label>Ciudad</label>
 
                     <input
                         type="text"
-                        placeholder="Event Location"
+                        placeholder="Ciudad"
                         value={location}
                         onChange={(e) => {
                             setLocation(e.target.value);
@@ -161,10 +170,11 @@ export const EventForm = ({
                 </div>
 
                 <div className="form-group">
-                    <label>Date</label>
+                    <label>Fecha del evento</label>
 
                     <input
                         type="date"
+                        min={new Date().toISOString().split("T")[0]}
                         value={date}
                         onChange={(e) => {
                             setDate(e.target.value);
@@ -174,53 +184,92 @@ export const EventForm = ({
                 </div>
 
                 <div className="form-group">
-                    <label>Event location on map</label>
+                    <label>Hora de inicio</label>
 
+                    <input
+                        type="time"
+                        value={startTime}
+                        onChange={(e) => {
+                            setStartTime(e.target.value);
+                            setMessage("");
+                        }}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Hora estimada de finalización</label>
+
+                    <input
+                        type="time"
+                        value={endTime}
+                        onChange={(e) => {
+                            setEndTime(e.target.value);
+                            setMessage("");
+                        }}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Cierre de inscripciones</label>
+
+                    <input
+                        type="datetime-local"
+                        value={registrationDeadline}
+                        onChange={(e) => {
+                            setRegistrationDeadline(e.target.value);
+                            setMessage("");
+                        }}
+                    />
+                </div>
+
+                <div className="form-group">
+                    
                     <button
                         type="button"
                         className="select-location-button"
-                        onClick={() => setShowMap(!showMap)}                    >
-                        Select location on map
+                        onClick={() => setShowMap(!showMap)}
+                    >
+                        Seleccionar ubicación en el mapa
                     </button>
 
-                    <p>
-                        <p>
-                            {latitude !== "" && longitude !== ""
-                                ? `Location selected: ${Number(latitude).toFixed(5)}, ${Number(longitude).toFixed(5)}`
-                                : "No location selected"}
-                        </p>
-                    </p>
+                    <div className="location-status">
+                        {latitude !== "" && longitude !== ""
+                            ? (
+                                <>
+                                    <span>Ubicación seleccionada</span>
+                                    <small>
+                                        Lat: {Number(latitude).toFixed(5)} | Lng: {Number(longitude).toFixed(5)}
+                                    </small>
+                                </>
+                            )
+                            : (
+                                <span>No hay ubicación seleccionada</span>
+                            )}
+                    </div>
+
                     {showMap && (
                         <div className="map-placeholder">
-                            {showMap && (
-                                <div className="map-placeholder">
+                            <MapContainer
+                                center={[40.4168, -3.7038]}
+                                zoom={6}
+                                style={{ height: "100%", width: "100%" }}
+                            >
+                                <TileLayer
+                                    attribution='&copy; OpenStreetMap contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
 
-                                    <MapContainer
-                                        center={[40.4168, -3.7038]}
-                                        zoom={6}
-                                        style={{ height: "100%", width: "100%" }}
-                                    >
-
-                                        <TileLayer
-                                            attribution='&copy; OpenStreetMap contributors'
-                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        />
-
-                                        <LocationSelector />
-
-                                    </MapContainer>
-
-                                </div>
-                            )}
+                                <LocationSelector />
+                            </MapContainer>
                         </div>
                     )}
                 </div>
 
                 <div className="form-group">
-                    <label>Event Description</label>
+                    <label>Descripción del evento</label>
 
                     <textarea
-                        placeholder="Event Description"
+                        placeholder="Descripción del evento"
                         value={description}
                         onChange={(e) => {
                             setDescription(e.target.value);
@@ -231,7 +280,7 @@ export const EventForm = ({
 
                 <div className="event-form-buttons">
                     <button className="create-event-button">
-                        {editingEvent ? "Update Event" : "Create Event"}
+                        {editingEvent ? "Actualizar Evento" : "Crear Evento"}
                     </button>
 
                     {editingEvent && (
@@ -244,13 +293,16 @@ export const EventForm = ({
                                 setEventName("");
                                 setLocation("");
                                 setDate("");
+                                setStartTime("");
+                                setEndTime("");
+                                setRegistrationDeadline("");
                                 setLatitude("");
                                 setLongitude("");
                                 setDescription("");
                                 setMessage("");
                             }}
                         >
-                            Cancel
+                            Cancelar
                         </button>
                     )}
                 </div>

@@ -46,7 +46,7 @@ export const Navbar = () => {
                     {isLoggedIn && (
                         <>
                             <Link to="/map">Mapa</Link>
-                            <Link to="/organizer">Organizer</Link>
+                            <Link to="/organizer">Crear Evento</Link>
                             <Link to="/admin">Admin</Link>
                             <Link to="/profile">Perfil</Link>
 

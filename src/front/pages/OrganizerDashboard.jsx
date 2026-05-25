@@ -6,7 +6,6 @@ export const OrganizerDashboard = () => {
     const [editingEvent, setEditingEvent] = useState(null);
 
     const getEvents = async () => {
-
         const response = await fetch(
             import.meta.env.VITE_BACKEND_URL + "/events"
         );
@@ -14,15 +13,18 @@ export const OrganizerDashboard = () => {
         const data = await response.json();
 
         setEvents(data);
-
     };
 
     const deleteEvent = async (id) => {
+        const token = localStorage.getItem("token");
 
         const response = await fetch(
             import.meta.env.VITE_BACKEND_URL + "/event/" + id,
             {
                 method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                },
             }
         );
 
@@ -37,62 +39,58 @@ export const OrganizerDashboard = () => {
 
     return (
         <div className="organizer-dashboard">
-
             <h1 className="dashboard-title">
-                Organizer Dashboard
+                Bienvenido
             </h1>
 
             <p className="dashboard-description">
-                Welcome to the organizer panel.
+                Crea y gestiona tus eventos deportivos.
             </p>
 
-            <EventForm 
-                editingEvent={editingEvent} 
+            <EventForm
+                editingEvent={editingEvent}
                 getEvents={getEvents}
                 setEditingEvent={setEditingEvent}
             />
 
             <section className="my-events-section">
-
-                <h2>My Events</h2>
-
-                <p>
-                    Here you will manage your created events.
-                </p>
+                <h2>Mis eventos</h2>
 
                 {events.length === 0 && (
-                    <p>No events created yet.</p>
+                    <div className="empty-events">
+                        <h3>Aún no has creado ningún evento</h3>
+
+                        <p>
+                            Cuando publiques tu primer evento, aparecerá aquí para que puedas consultarlo, editarlo o eliminarlo.
+                        </p>
+                    </div>
                 )}
 
                 {events.map((event) => (
                     <div key={event.id} className="event-card">
-
                         <h3>{event.title}</h3>
 
                         <p>
-                            <strong>Location:</strong> {event.location_name}
+                            <strong>Ciudad:</strong> {event.location_name}
                         </p>
 
                         <p>
-                            <strong>Date:</strong> {event.date}
+                            <strong>Fecha:</strong> {event.date}
                         </p>
 
                         <div className="event-card-buttons">
-
                             <button
                                 onClick={() => {
                                     setEditingEvent(event);
-                                    console.log("Editing event", event.id);
                                 }}
                             >
-                                Edit
+                                Editar
                             </button>
 
                             <button
                                 onClick={() => {
-
                                     const confirmDelete = window.confirm(
-                                        "Are you sure you want to delete this event?"
+                                        "¿Seguro que quieres eliminar este evento?"
                                     );
 
                                     if (confirmDelete) {
@@ -100,16 +98,12 @@ export const OrganizerDashboard = () => {
                                     }
                                 }}
                             >
-                                Delete
+                                Eliminar
                             </button>
-
                         </div>
-
                     </div>
                 ))}
-
             </section>
-
         </div>
     );
 };

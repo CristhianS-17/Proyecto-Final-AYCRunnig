@@ -69,8 +69,39 @@ export const Profile = () => {
                         className="event-card"
                     >
                         <h3>{inscription.event?.title}</h3>
-                        <p>{inscription.event?.location_name}</p>
-                        <p>{inscription.event?.date}</p>
+
+                        <p>
+                            {inscription.event?.location_name}
+                        </p>
+
+                        <p>
+                            Hora inicio: {inscription.event?.start_time}
+                        </p>
+                        <button
+                            className="unsubscribe-button"
+                            onClick={async () => {
+
+                                const token = localStorage.getItem("token");
+
+                                const response = await fetch(
+                                    import.meta.env.VITE_BACKEND_URL +
+                                    "/unsubscribe/" +
+                                    inscription.event_id,
+                                    {
+                                        method: "DELETE",
+                                        headers: {
+                                            "Authorization": "Bearer " + token,
+                                        },
+                                    }
+                                );
+
+                                if (response.ok) {
+                                    window.location.reload();
+                                }
+                            }}
+                        >
+                            Cancelar inscripción
+                        </button>
                     </div>
                 ))}
             </div>

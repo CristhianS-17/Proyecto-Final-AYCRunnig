@@ -34,9 +34,9 @@ def handle_register():
 
         # 🔥 Guardamos los campos básicos + los nuevos campos de perfil si vienen del Front
         new_user = User(
-            email=email, 
+            email=email,
             password=secure_password,
-            role=role, 
+            role=role,
             is_active=True,
             first_name=body.get("first_name"),
             last_name=body.get("last_name"),
@@ -65,7 +65,8 @@ def handle_login():
     if user is None or not check_password_hash(user.password, password):
         return jsonify({"msg": "Credenciales incorrectas"}), 401
 
-    access_token = create_access_token(identity=str(user.id), additional_claims={"role": user.role})
+    access_token = create_access_token(identity=str(
+        user.id), additional_claims={"role": user.role})
     return jsonify({"token": access_token, "user": user.serialize()}), 200
 
 
@@ -84,19 +85,23 @@ def handle_profile():
 def update_profile():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
-    
+
     if not user:
         return jsonify({"msg": "Usuario no encontrado"}), 404
-        
+
     body = request.get_json()
     if not body:
         return jsonify({"msg": "Faltan datos para actualizar"}), 400
 
     # 🔥 El usuario puede actualizar sus datos dinámicamente desde su panel de perfil
-    if "first_name" in body: user.first_name = body["first_name"]
-    if "last_name" in body: user.last_name = body["last_name"]
-    if "gender" in body: user.gender = body["gender"]
-    if "residence" in body: user.residence = body["residence"]
+    if "first_name" in body:
+        user.first_name = body["first_name"]
+    if "last_name" in body:
+        user.last_name = body["last_name"]
+    if "gender" in body:
+        user.gender = body["gender"]
+    if "residence" in body:
+        user.residence = body["residence"]
 
     try:
         db.session.commit()
@@ -119,7 +124,8 @@ def create_event():
         return jsonify({"msg": "Permisos insuficientes. Debes ser organizador."}), 403
 
     body = request.get_json()
-    required_fields = ['title', 'date', 'location_name', 'latitude', 'longitude']
+    required_fields = ['title', 'date',
+                       'location_name', 'latitude', 'longitude']
     for field in required_fields:
         if field not in body or body[field] is None:
             return jsonify({"msg": f"Falta el campo obligatorio: {field}"}), 400
@@ -132,6 +138,9 @@ def create_event():
             location_name=body['location_name'],
             latitude=body['latitude'],
             longitude=body['longitude'],
+            start_time=body.get('start_time'),
+            end_time=body.get('end_time'),
+            registration_deadline=body.get('registration_deadline'),
             organizer_id=current_user_id
         )
         db.session.add(new_event)
@@ -170,7 +179,17 @@ def update_event(event_id):
         return jsonify({"msg": "No tienes permiso para editar este evento"}), 403
 
     body = request.get_json()
-    fields_to_update = ['title', 'description', 'date', 'location_name', 'latitude', 'longitude']
+    fields_to_update = [
+        'title',
+        'description',
+        'date',
+        'location_name',
+        'latitude',
+        'longitude',
+        'start_time',
+        'end_time',
+        'registration_deadline'
+    ]
     for field in fields_to_update:
         if field in body:
             setattr(event, field, body[field])
@@ -191,8 +210,11 @@ def delete_event(event_id):
     if event.organizer_id != int(current_user_id):
         return jsonify({"msg": "No tienes permiso para borrar este evento"}), 403
 
+    Inscription.query.filter_by(event_id=event_id).delete()
+
     db.session.delete(event)
     db.session.commit()
+    
     return jsonify({"msg": "Evento eliminado correctamente"}), 200
 
 # RUTAS DE INSCRIPCIONES (MANY-TO-MANY)
@@ -221,7 +243,8 @@ def subscribe_to_event():
         return jsonify({"msg": "Ya estás inscrito en esta carrera"}), 400
 
     try:
-        new_inscription = Inscription(user_id=current_user_id, event_id=event_id)
+        new_inscription = Inscription(
+            user_id=current_user_id, event_id=event_id)
         db.session.add(new_inscription)
         db.session.commit()
         return jsonify({"msg": "Inscripción completada con éxito"}), 201
@@ -234,7 +257,8 @@ def subscribe_to_event():
 @jwt_required()
 def unsubscribe(event_id):
     current_user_id = get_jwt_identity()
-    inscription = Inscription.query.filter_by(user_id=current_user_id, event_id=event_id).first()
+    inscription = Inscription.query.filter_by(
+        user_id=current_user_id, event_id=event_id).first()
 
     if not inscription:
         return jsonify({"msg": "No estás inscrito en este evento"}), 404
@@ -248,5 +272,6 @@ def unsubscribe(event_id):
 @jwt_required()
 def get_my_inscriptions():
     current_user_id = get_jwt_identity()
-    user_inscriptions = Inscription.query.filter_by(user_id=current_user_id).all()
+    user_inscriptions = Inscription.query.filter_by(
+        user_id=current_user_id).all()
     return jsonify([ins.serialize() for ins in user_inscriptions]), 200

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/runbound-logo.png";
 import atleta from "../assets/atleta.png";
+import atleta2 from "../assets/atleta2.png";
+
 
 
 export const Home = () => {
@@ -29,6 +31,19 @@ export const Home = () => {
                     <img src={atleta} alt="running" />
                 </div>
 
+            </div>
+
+            <div className="home-quote-section reverse">
+                <div className="home-image">
+                    <img src={atleta2} alt="running" />
+                </div>
+
+                <div className="home-quote">
+                    <p>
+                        "El éxito en el atletismo no se mide por la velocidad, sino por la constancia y la pasión."
+                        <br />— RunBound
+                    </p>
+                </div>
             </div>
 
             <div className="home-buttons">

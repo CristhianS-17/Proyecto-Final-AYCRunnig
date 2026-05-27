@@ -154,7 +154,7 @@ body {
 }
 
 .btn-login {
-  background: #b8aa92;
+  background: black;
 }
 
 .btn-login:hover {
@@ -166,7 +166,7 @@ body {
 }
 
 .btn-register:hover {
-  background: #333333;
+  background: #dacab0;
 }
 
 .home-quote-section {

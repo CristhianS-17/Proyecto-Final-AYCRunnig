@@ -31,15 +31,8 @@ export const Navbar = () => {
 
                     {!isLoggedIn && (
                         <>
-
-                            <Link to="/login" className="btn-beige">
-                                Login
-                            </Link>
-
-                            <Link to="/register">
-                                Register
-                            </Link>
-
+                            <Link to="/register">Register</Link>
+                            <Link to="/login" className="btn-beige">Login</Link>
                         </>
                     )}
 

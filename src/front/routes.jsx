@@ -14,6 +14,8 @@ import { MapView } from "./pages/MapView";
 import { EventDetail } from "./pages/EventDetail";
 import { OrganizerDashboard } from "./pages/OrganizerDashboard";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ResetPassword } from "./pages/ResetPassword";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +26,10 @@ export const router = createBrowserRouter(
 
             {/* LOGIN */}
             <Route path="login" element={<Login />} />
+
+            {/* FLUJO DE RECUPERACIÓN DE CONTRASEÑA */}
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
 
             {/* REGISTER */}
             <Route path="register" element={<Register />} />

@@ -40,11 +40,18 @@ export const Login = () => {
 
             // Guardar token y rol
             localStorage.setItem("token", data.token);
-            localStorage.setItem("role", data.role);
+            localStorage.setItem("role", data.user.role);
+            localStorage.setItem("user_id", data.user.id);
 
             // Redirección por rol
-            if (data.role === "runner") navigate("/");
-            if (data.role === "organizer") navigate("/organizer");
+           if (data.user.role === "runner"){
+                navigate("/profile");
+            }
+
+            if (data.user.role === "organizer") {
+                navigate("/organizer");
+            }
+
 
         } catch (error) {
             setMessage("Error de conexión con el servidor");

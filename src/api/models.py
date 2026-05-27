@@ -11,10 +11,12 @@ class User(db.Model):
     __tablename__ = 'user'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True)
-    role: Mapped[str] = mapped_column(String(20), nullable=False, default="runner")
+    role: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="runner")
 
     first_name: Mapped[str] = mapped_column(String(80), nullable=True)
     last_name: Mapped[str] = mapped_column(String(80), nullable=True)
@@ -22,7 +24,8 @@ class User(db.Model):
     residence: Mapped[str] = mapped_column(String(120), nullable=True)
 
     events: Mapped[List["Event"]] = relationship(back_populates="organizer")
-    inscriptions: Mapped[List["Inscription"]] = relationship(back_populates="user")
+    inscriptions: Mapped[List["Inscription"]
+                         ] = relationship(back_populates="user")
 
     def serialize(self):
         return {
@@ -51,12 +54,15 @@ class Event(db.Model):
 
     start_time: Mapped[str] = mapped_column(String(20), nullable=True)
     end_time: Mapped[str] = mapped_column(String(20), nullable=True)
-    registration_deadline: Mapped[str] = mapped_column(String(50), nullable=True)
+    registration_deadline: Mapped[str] = mapped_column(
+        String(50), nullable=True)
 
-    organizer_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    organizer_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"), nullable=False)
     organizer: Mapped["User"] = relationship(back_populates="events")
 
-    participants: Mapped[List["Inscription"]] = relationship(back_populates="event")
+    participants: Mapped[List["Inscription"]
+                         ] = relationship(back_populates="event")
 
     def serialize(self):
         return {
@@ -71,7 +77,16 @@ class Event(db.Model):
             "end_time": self.end_time,
             "registration_deadline": self.registration_deadline,
             "organizer_id": self.organizer_id,
-            "total_participants": len(self.participants)
+            "total_participants": len(self.participants),
+            "participantes": [
+                {
+                    "id": ins.user.id,
+                    "email": ins.user.email,
+                    "first_name": ins.user.first_name,
+                    "last_name": ins.user.last_name
+                }
+                for ins in self.participants
+            ]
         }
 
 
@@ -80,7 +95,8 @@ class Inscription(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False)
-    event_id: Mapped[int] = mapped_column(ForeignKey('event.id'), nullable=False)
+    event_id: Mapped[int] = mapped_column(
+        ForeignKey('event.id'), nullable=False)
     registration_date: Mapped[datetime.datetime] = mapped_column(
         DateTime,
         default=func.now()

@@ -1,34 +1,112 @@
+import { useEffect, useState } from "react";
+import "../styles/AdminDashboard.css";
+
 export const AdminDashboard = () => {
+    const [events, setEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+
+    const getEvents = async () => {
+        const response = await fetch(
+            import.meta.env.VITE_BACKEND_URL + "/events"
+        );
+
+        const data = await response.json();
+
+        const userId = localStorage.getItem("user_id");
+
+        const myEvents = data.filter((event) => {
+            return event.organizer_id === Number(userId);
+        });
+
+        setEvents(myEvents);
+    };
+
+    useEffect(() => {
+        getEvents();
+    }, []);
+
     return (
         <div className="admin-dashboard">
-            <h1 className="dashboard-title">Admin Dashboard</h1>
+            <h1 className="dashboard-title">Panel del Organizador</h1>
 
             <p className="dashboard-description">
-                Welcome to the Admin Dashboard
+                Consulta el estado de tus eventos y las inscripciones.
             </p>
 
-            <h2>Manage users and events</h2>
-
-            <ul className="admin-list">
-                <li>Manage Users</li>
-                <li>Manage Events</li>
-                <li>Disable Accounts</li>
-            </ul>
-
             <div className="admin-cards">
-                <div className="admin-card">
-                    <h3>Users Management</h3>
-                    <p>Manage platform users and permissions.</p>
-                </div>
-                <div className="admin-card">
-                    <h3>Events Management</h3>
-                    <p>Manage events and organizers.</p>
-                </div>
-                <div className="admin-card">
-                    <h3>Account Control</h3>
-                    <p>Disable or activate user accounts.</p>
-                </div>
+                {events.map((event) => (
+                    <div
+                        key={event.id}
+                        className="admin-card"
+                        onClick={() => setSelectedEvent(event)}
+                    >
+                        <h3>{event.title}</h3>
+
+                        <p>
+                            <strong>Ciudad:</strong> {event.location_name}
+                        </p>
+
+                        <p>
+                            <strong>Inscritos:</strong> {event.total_participants}
+                        </p>
+
+                        <p>
+                            <strong>Cierre:</strong> {event.registration_deadline || "No indicado"}
+                        </p>
+                    </div>
+                ))}
             </div>
-        </div>
+
+            {selectedEvent && (
+                <div className="admin-selected-event">
+                    <h2>{selectedEvent.title}</h2>
+
+                    <p>
+                        <strong>Ciudad:</strong> {selectedEvent.location_name}
+                    </p>
+
+                    <p>
+                        <strong>Fecha:</strong> {selectedEvent.date}
+                    </p>
+
+                    <p>
+                        <strong>Hora inicio:</strong> {selectedEvent.start_time || "No indicada"}
+                    </p>
+
+                    <p>
+                        <strong>Total inscritos:</strong> {selectedEvent.total_participants}
+                    </p>
+
+                    <h3>Atletas inscritos</h3>
+
+                    {selectedEvent.participantes?.length === 0 && (
+                        <p>No hay atletas inscritos todavía.</p>
+                    )}
+
+                    {selectedEvent.participantes?.map((participant) => (
+                        <div key={participant.id} className="participant-card">
+
+                            <p>
+                                <strong>Nombre:</strong>{" "}
+                                {participant.first_name || "Sin nombre"}
+                            </p>
+
+                            <p>
+                                <strong>Apellidos:</strong>{" "}
+                                {participant.last_name || "Sin apellidos"}
+                            </p>
+
+                            <p>
+                                <strong>Email:</strong>{" "}
+                                {participant.email}
+                            </p>
+
+                        </div>
+                    ))}
+
+                </div>
+            )
+            }
+        </div >
     );
 };

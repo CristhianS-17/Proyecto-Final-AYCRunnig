@@ -22,8 +22,8 @@ export const Home = () => {
 
                 <div className="home-quote">
                     <p>
-                        "En atletismo las piernas no son lo más importante, lo importante es el corazón y la mente."
-                        <br />— Eliud Kipchoge
+                        "La motivación te hace empezar. El hábito te hace continuar."
+                        <br />— Jim Ryun
                     </p>
                 </div>
 
@@ -40,8 +40,8 @@ export const Home = () => {
 
                 <div className="home-quote">
                     <p>
-                        "El éxito en el atletismo no se mide por la velocidad, sino por la constancia y la pasión."
-                        <br />— RunBound
+                        "Cada carrera es una oportunidad para descubrir tu fuerza."
+                        <br />— Paula Radcliffe
                     </p>
                 </div>
             </div>

@@ -5,6 +5,26 @@ export const Profile = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
+    const handleAvatarUpload = async (e) => {
+        const file = e.target.files[0];
+        const token = localStorage.getItem("token");
+
+        const formData = new FormData();
+        formData.append("avatar", file);
+
+        const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/upload-avatar", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (resp.ok) {
+            window.location.reload();
+        }
+    };
+
     useEffect(() => {
         const getProfileData = async () => {
             const token = localStorage.getItem("token");
@@ -55,7 +75,7 @@ export const Profile = () => {
                         alt="avatar"
                         className="profile-avatar"
                     />
-                    <button className="btn-edit-profile">Editar perfil</button>
+
                 </div>
 
                 <h2 className="profile-name">{user.email}</h2>
@@ -67,6 +87,10 @@ export const Profile = () => {
                     <span className="role-badge">{user.role}</span>
                 </p>
 
+                <p><strong>Peso:</strong> {user.peso || "—"} kg</p>
+
+                <p><strong>Altura:</strong> {user.altura || "—"} cm</p>
+
                 <p>
                     <strong>Estado:</strong>
                     {user.is_active ? "🟢 Activa" : "🔴 Inactiva"}
@@ -76,6 +100,13 @@ export const Profile = () => {
                     <strong>Carreras guardadas:</strong>
                     {user.my_inscriptions?.length || 0}
                 </p>
+
+                <button
+                    className="btn-edit-profile"
+                    onClick={() => navigate("/edit-profile")}
+                >
+                    Editar perfil
+                </button>
 
                 {/* LISTA DE INSCRIPCIONES */}
                 {user.my_inscriptions?.map((inscription) => (
@@ -142,7 +173,7 @@ export const Profile = () => {
                 <h3 className="chart-title">Progreso semanal</h3>
 
                 <div className="chart-placeholder">
-                    <p>📈 Gráfico próximamente</p>
+
                 </div>
 
             </div>

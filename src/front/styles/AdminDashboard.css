@@ -1,0 +1,77 @@
+.admin-dashboard {
+  padding: 40px;
+}
+
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.admin-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(120,102,82,0.18),
+      #ffffff
+    );
+
+  border-radius: 20px;
+  padding: 24px;
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.1);
+
+  transition: all 0.25s ease;
+
+  border: 1px solid rgba(120,102,82,0.15);
+}
+
+.admin-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,0.16);
+}
+
+.admin-card h3 {
+  color: #1f1f1f;
+  margin-bottom: 14px;
+}
+
+.admin-card p {
+  color: #555;
+  margin: 6px 0;
+}
+
+.admin-selected-event {
+  margin-top: 40px;
+
+  padding: 30px;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.12);
+}
+
+.participant-card {
+  margin-top: 15px;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: #f7f5f2;
+
+  border-left: 5px solid #786652;
+}
+
+.participant-card p {
+  margin: 5px 0;
+  color: #333;
+}

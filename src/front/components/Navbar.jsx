@@ -50,11 +50,6 @@ export const Navbar = () => {
                             <Link to="/admin">Admin</Link>
                             <Link to="/profile">Perfil</Link>
 
-                            {role === "organizer" && (
-                                <Link to="/organizer">
-                                    Organizer
-                                </Link>
-                            )}
 
                             {role === "admin" && (
                                 <Link to="/admin">

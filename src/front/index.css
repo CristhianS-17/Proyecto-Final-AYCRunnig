@@ -271,13 +271,13 @@ body {
 
 /* TARJETA IZQUIERDA */
 .profile-card {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 15px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
 }
 
 /* FOTO DE PERFIL */
@@ -317,22 +317,38 @@ body {
 
 /* BADGES & BUTTONS */
 .role-badge {
-    background: #B8AA92;
-    padding: 5px 12px;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    margin-left: 10px;
+  background: #B8AA92;
+  padding: 5px 12px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
-/* TARJETA DERECHA */
+.btn-edit,
+.btn-edit-profile {
+  background: #B8AA92;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-edit:hover,
+.btn-edit-profile:hover {
+  background: #dacab0;
+}
+
+/* TARJETA DERECHA (ESTADÍSTICAS) */
 .profile-stats {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 15px;
-    width: 500px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 15px;
+  width: 500px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
 }
 
 .profile-stats h3 {
@@ -360,9 +376,9 @@ body {
 }
 
 .stat-box p {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #1F1F1F;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1F1F1F;
 }
 
 /* GRÁFICO */
@@ -530,36 +546,20 @@ body {
 
 /* === ORGANIZER EVENT CARDS === */
 .event-card {
-  background:
-  linear-gradient(
-    135deg,
-    rgba(120,102,82,0.22),
-    rgba(255,255,255,0.96)
-  );
+  background: linear-gradient(135deg, rgba(120,102,82,0.22), rgba(255,255,255,0.96));
   border-radius: 18px;
   padding: 24px;
   margin-top: 20px;
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.08),
-    0 2px 6px rgba(0, 0, 0, 0.05);
-
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.4);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
   position: relative;
 }
 
 .event-card:hover {
   transform: translateY(-6px);
-
-  box-shadow:
-    0 18px 35px rgba(0, 0, 0, 0.12),
-    0 6px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
 .event-card h3 {
@@ -646,12 +646,7 @@ body {
 .event-detail-page {
   min-height: 100vh;
   padding: 50px 20px;
-  background:
-    linear-gradient(
-      180deg,
-      #f7f5f2 0%,
-      #ffffff 100%
-    );
+  background: linear-gradient(180deg, #f7f5f2 0%, #ffffff 100% );
 }
 
 .event-detail-hero {
@@ -663,7 +658,7 @@ body {
   display: inline-block;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(120, 102, 82, 0.12);
+  background: rgba(120,102,82,0.12);
   color: #786652;
   font-size: 14px;
   font-weight: 700;
@@ -687,10 +682,7 @@ body {
   background: white;
   border-radius: 24px;
   padding: 35px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.08),
-    0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .event-detail-info-grid {
@@ -701,13 +693,7 @@ body {
 }
 
 .event-detail-info-item {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(120,102,82,0.08),
-      rgba(255,255,255,1)
-    );
-
+  background: linear-gradient(135deg, rgba(120,102,82,0.08), rgba(255,255,255,1));
   border-radius: 18px;
   padding: 20px;
 }
@@ -745,17 +731,12 @@ body {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .event-subscribe-button:hover {
   transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 20px rgba(25,135,84,0.25);
+  box-shadow: 0 10px 20px rgba(25,135,84,0.25);
 }
 
 .unsubscribe-button {
@@ -768,15 +749,53 @@ body {
   color: white;
   font-weight: 700;
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .unsubscribe-button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(220,53,69,0.25);
+}
 
-  box-shadow:
-    0 8px 18px rgba(220,53,69,0.25);
+/* STATUS & MESSAGES */
+.event-detail-loading {
+  padding: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.event-message {
+  background-color: #198754;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* === FOOTER === */
+.footer {
+  background-color: #5a5959;
+  color: #1f1f1f;
+  padding: 25px 0;
+  text-align: center;
+  border-top: 2px solid #5a5959;
+  margin-top: 40px;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.footer .bound {
+  color: #b8aa92 !important;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

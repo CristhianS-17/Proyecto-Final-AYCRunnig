@@ -5,11 +5,11 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        nombre: "",
-        apellido: "",
-        fecha_nacimiento: "",
-        sexo: "",
-        residencia: "",
+        first_name: "",
+        last_name: "",
+        birth_date: "",
+        gender: "",
+        residence: "",
         email: "",
         password: "",
         role: "runner"
@@ -52,7 +52,7 @@ export const Register = () => {
 
                 <input
                     type="text"
-                    name="nombre"
+                    name="first_name"
                     placeholder="Nombre"
                     className="form-control mb-3"
                     onChange={handleChange}
@@ -60,7 +60,7 @@ export const Register = () => {
 
                 <input
                     type="text"
-                    name="apellido"
+                    name="last_name"
                     placeholder="Apellido"
                     className="form-control mb-3"
                     onChange={handleChange}
@@ -75,7 +75,7 @@ export const Register = () => {
                 />
 
                 <select
-                    name="sexo"
+                    name="gender"
                     className="form-control mb-3"
                     onChange={handleChange}
                 >
@@ -87,7 +87,7 @@ export const Register = () => {
 
                 <input
                     type="text"
-                    name="residencia"
+                    name="residence"
                     placeholder="Lugar de residencia"
                     className="form-control mb-3"
                     onChange={handleChange}

@@ -274,6 +274,33 @@ def unsubscribe(event_id):
     db.session.commit()
     return jsonify({"msg": "Inscripción cancelada correctamente"}), 200
 
+@api.route('/event/<int:event_id>/participant/<int:user_id>', methods=['DELETE'])
+@jwt_required()
+def remove_participant(event_id, user_id):
+
+    current_user_id = get_jwt_identity()
+
+    event = Event.query.get(event_id)
+
+    if not event:
+        return jsonify({"msg": "Evento no encontrado"}), 404
+
+    if event.organizer_id != int(current_user_id):
+        return jsonify({"msg": "No tienes permiso"}), 403
+
+    inscription = Inscription.query.filter_by(
+        user_id=user_id,
+        event_id=event_id
+    ).first()
+
+    if not inscription:
+        return jsonify({"msg": "Participante no encontrado"}), 404
+
+    db.session.delete(inscription)
+    db.session.commit()
+
+    return jsonify({"msg": "Participante eliminado"}), 200
+
 
 @api.route('/my-inscriptions', methods=['GET'])
 @jwt_required()

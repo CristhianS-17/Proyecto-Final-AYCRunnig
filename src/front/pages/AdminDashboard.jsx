@@ -320,9 +320,7 @@ export const AdminDashboard = () => {
                                     className="participant-item"
                                 >
                                     <span>
-                                        {participant.first_name && participant.last_name
-                                            ? `${participant.first_name} ${participant.last_name}`
-                                            : participant.email}
+                                        {`${participant.first_name || ""} ${participant.last_name || ""}`.trim() || participant.email}
                                     </span>
 
                                     <button

@@ -563,29 +563,56 @@ body {
 }
 
 /* === DASHBOARDS === */
-.organizer-dashboard,
+.organizer-dashboard {
+  min-height: 100vh;
+  padding: 40px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .admin-dashboard {
   padding: 2rem;
 }
 
+/* Y.R.P - Títulos del OrganizerDashboard sobre imagen de fondo */
 .dashboard-title {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+
+  color: white;
+
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Y.R.P - Descripción visible sobre fondos fotográficos */
 .dashboard-description {
-  color: gray;
+  color: white;
+
   font-size: 1.1rem;
+
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 /* === EVENT FORM === */
 .event-form {
-  margin-top: 25px;
-  padding: 32px;
+  max-width: 620px;
+  margin: 35px auto;
+  padding: 28px;
+
   border: none;
   border-radius: 24px;
-  background: linear-gradient(145deg, #ffffff, #f3f0eb);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.14);
+
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+
   animation: fadeIn 0.4s ease;
 }
 
@@ -629,26 +656,46 @@ body {
 }
 
 .create-event-button {
-  padding: 0.9rem 1.7rem;
+  padding: 12px 20px;
+
   border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #198754, #24a866);
-  color: white;
+  border-radius: 10px;
+
+  background: #B8AA92;
+  color: #1F1F1F;
+
   cursor: pointer;
   font-weight: 700;
-  transition: all 0.2s ease;
+
+  transition: 0.25s ease;
 }
 
 .create-event-button:hover {
+  background: #DACAB0;
+  color: #1F1F1F;
+
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(25, 135, 84, 0.35);
-  background-color: #157347;
 }
 
 .event-form-buttons {
   display: flex;
   gap: 10px;
   margin-top: 15px;
+}
+
+/* Y.R.P - Nota informativa junto al botón de crear evento.
+   Indica que la gestión posterior se realiza desde el panel Admin. */
+.event-form-note {
+  margin: 0;
+  max-width: 260px;
+
+  display: flex;
+  align-items: center;
+
+  color: #1F1F1F;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .cancel-edit-button {

@@ -223,7 +223,7 @@ export const EventForm = ({
                 </div>
 
                 <div className="form-group">
-                    
+
                     <button
                         type="button"
                         className="select-location-button"
@@ -278,10 +278,17 @@ export const EventForm = ({
                     ></textarea>
                 </div>
 
+                {/* Y.R.P - Botonera del formulario y nota de gestión para orientar al organizador */}
                 <div className="event-form-buttons">
                     <button className="create-event-button">
                         {editingEvent ? "Actualizar Evento" : "Crear Evento"}
                     </button>
+
+                    {!editingEvent && (
+                        <p className="event-form-note">
+                            Una vez creado, podrás gestionar este evento desde la sección Admin.
+                        </p>
+                    )}
 
                     {editingEvent && (
                         <button

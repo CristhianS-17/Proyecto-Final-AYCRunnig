@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/AdminDashboard.css";
+import backgroundImage from "../assets/img-yrp/6.jpeg";
 
 export const AdminDashboard = () => {
     const [events, setEvents] = useState([]);
@@ -8,6 +9,7 @@ export const AdminDashboard = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editField, setEditField] = useState("");
     const [editValue, setEditValue] = useState("");
+    const [activeTab, setActiveTab] = useState("todos");
 
     const getEvents = async () => {
         const response = await fetch(
@@ -15,7 +17,6 @@ export const AdminDashboard = () => {
         );
 
         const data = await response.json();
-
         const userId = localStorage.getItem("user_id");
 
         const myEvents = data.filter((event) => {
@@ -25,13 +26,20 @@ export const AdminDashboard = () => {
         setEvents(myEvents);
     };
 
-    const getCountdown = (eventDate) => {
-        const eventTime = new Date(eventDate).getTime();
+    // Y.R.P - Calcula el tiempo restante hasta el cierre de inscripción
+    const getCountdown = (deadline) => {
+        const endTime = new Date(deadline).getTime();
         const currentTime = now.getTime();
-        const difference = eventTime - currentTime;
+        const difference = endTime - currentTime;
 
-        if (difference <= 0) {
-            return "Evento finalizado";
+        if (!deadline || difference <= 0) {
+            return {
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0,
+                closed: true
+            };
         }
 
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -50,7 +58,48 @@ export const AdminDashboard = () => {
             (difference % (1000 * 60)) / 1000
         );
 
-        return `Quedan ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+        return {
+            days,
+            hours,
+            minutes,
+            seconds,
+            closed: false
+        };
+    };
+
+    // Y.R.P - Renderiza el contador separado por días, horas, minutos y segundos
+    const renderCountdown = (deadline) => {
+        const countdown = getCountdown(deadline);
+
+        return (
+            <div className="event-countdown">
+                <span className="countdown-title">
+                    {countdown.closed ? "Inscripciones cerradas" : "Quedan"}
+                </span>
+
+                <div className="countdown-boxes">
+                    <div className="countdown-box">
+                        <strong>{countdown.days}</strong>
+                        <small>Días</small>
+                    </div>
+
+                    <div className="countdown-box">
+                        <strong>{countdown.hours}</strong>
+                        <small>Horas</small>
+                    </div>
+
+                    <div className="countdown-box">
+                        <strong>{countdown.minutes}</strong>
+                        <small>Min</small>
+                    </div>
+
+                    <div className="countdown-box">
+                        <strong>{countdown.seconds}</strong>
+                        <small>Seg</small>
+                    </div>
+                </div>
+            </div>
+        );
     };
 
     const deleteEvent = async (eventId) => {
@@ -89,7 +138,12 @@ export const AdminDashboard = () => {
     }, []);
 
     return (
-        <div className="admin-dashboard">
+        <div
+            className="admin-dashboard"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+            }}
+        >
             <h1 className="dashboard-title">Panel del Organizador</h1>
 
             <p className="dashboard-description">
@@ -118,10 +172,7 @@ export const AdminDashboard = () => {
                             {event.registration_deadline || "No indicado"}
                         </p>
 
-                        <p className="event-countdown">
-                            ⏳ {getCountdown(event.date)}
-                        </p>
-
+                        {renderCountdown(event.registration_deadline)}
                     </div>
                 ))}
             </div>
@@ -139,7 +190,6 @@ export const AdminDashboard = () => {
                             <h2>{selectedEvent.title}</h2>
 
                             <div className="admin-event-actions">
-
                                 <button
                                     className="admin-edit-event-button"
                                     onClick={() => setIsEditing(true)}
@@ -180,9 +230,7 @@ export const AdminDashboard = () => {
                             </div>
                         </div>
 
-                        <p className="event-countdown">
-                            ⏳ {getCountdown(selectedEvent.date)}
-                        </p>
+                        {renderCountdown(selectedEvent.registration_deadline)}
 
                         {isEditing && (
                             <div className="edit-event-box">
@@ -266,8 +314,6 @@ export const AdminDashboard = () => {
                                             );
 
                                             const data = await response.json();
-                                            console.log("RESPUESTA UPDATE:", data);
-                                            console.log("STATUS UPDATE:", response.status);
 
                                             if (response.ok) {
                                                 const updatedEvent = {
@@ -303,63 +349,127 @@ export const AdminDashboard = () => {
                                         Cancelar
                                     </button>
                                 </div>
-
                             </div>
                         )}
 
                         <h3>Atletas inscritos</h3>
+
+                        <div className="participants-tabs">
+                            <button
+                                className={activeTab === "todos" ? "tab-active" : ""}
+                                onClick={() => setActiveTab("todos")}
+                            >
+                                Todos
+                            </button>
+
+                            <button
+                                className={activeTab === "a-f" ? "tab-active" : ""}
+                                onClick={() => setActiveTab("a-f")}
+                            >
+                                A - F
+                            </button>
+
+                            <button
+                                className={activeTab === "g-l" ? "tab-active" : ""}
+                                onClick={() => setActiveTab("g-l")}
+                            >
+                                G - L
+                            </button>
+
+                            <button
+                                className={activeTab === "m-r" ? "tab-active" : ""}
+                                onClick={() => setActiveTab("m-r")}
+                            >
+                                M - R
+                            </button>
+
+                            <button
+                                className={activeTab === "s-z" ? "tab-active" : ""}
+                                onClick={() => setActiveTab("s-z")}
+                            >
+                                S - Z
+                            </button>
+                        </div>
 
                         {selectedEvent.participantes?.length === 0 && (
                             <p>No hay atletas inscritos todavía.</p>
                         )}
 
                         <ol className="participants-list">
-                            {selectedEvent.participantes?.map((participant) => (
-                                <li
-                                    key={participant.id}
-                                    className="participant-item"
-                                >
-                                    <span>
-                                        {participant.first_name && participant.last_name
-                                            ? `${participant.first_name} ${participant.last_name}`
-                                            : participant.email}
-                                    </span>
+                            {selectedEvent.participantes
+                                ?.filter((participant) => {
+                                    const fullName = `${participant.last_name || ""} ${participant.first_name || ""}`.trim().toLowerCase();
 
-                                    <button
-                                        className="remove-participant-button"
-                                        onClick={async () => {
-                                            const confirmRemove = window.confirm(
-                                                "¿Seguro que quieres quitar este atleta del evento?"
-                                            );
+                                    if (activeTab === "todos") return true;
 
-                                            if (!confirmRemove) return;
+                                    if (activeTab === "a-f") {
+                                        return /^[a-f]/.test(fullName);
+                                    }
 
-                                            const token = localStorage.getItem("token");
+                                    if (activeTab === "g-l") {
+                                        return /^[g-l]/.test(fullName);
+                                    }
 
-                                            const response = await fetch(
-                                                import.meta.env.VITE_BACKEND_URL +
-                                                "/event/" +
-                                                selectedEvent.id +
-                                                "/participant/" +
-                                                participant.id,
-                                                {
-                                                    method: "DELETE",
-                                                    headers: {
-                                                        "Authorization": "Bearer " + token,
-                                                    },
-                                                }
-                                            );
+                                    if (activeTab === "m-r") {
+                                        return /^[m-r]/.test(fullName);
+                                    }
 
-                                            if (response.ok) {
-                                                setSelectedEvent(null);
-                                                getEvents();
-                                            }
-                                        }}
+                                    if (activeTab === "s-z") {
+                                        return /^[s-z]/.test(fullName);
+                                    }
+
+                                    return true;
+                                })
+                                .map((participant) => (
+                                    <li
+                                        key={participant.id}
+                                        className="participant-item"
                                     >
-                                        Quitar atleta
-                                    </button>
-                                </li>
-                            ))}
+                                        <span className="participant-info">
+                                            <strong>
+                                                {`${participant.first_name || ""} ${participant.last_name || ""}`.trim() || "Sin nombre"}
+                                            </strong>
+
+                                            <small>
+                                                {participant.email}
+                                            </small>
+                                        </span>
+
+                                        <button
+                                            className="remove-participant-button"
+                                            onClick={async () => {
+                                                const confirmRemove = window.confirm(
+                                                    "¿Seguro que quieres quitar este atleta del evento?"
+                                                );
+
+                                                if (!confirmRemove) return;
+
+                                                const token = localStorage.getItem("token");
+
+                                                const response = await fetch(
+                                                    import.meta.env.VITE_BACKEND_URL +
+                                                    "/event/" +
+                                                    selectedEvent.id +
+                                                    "/participant/" +
+                                                    participant.id,
+                                                    {
+                                                        method: "DELETE",
+                                                        headers: {
+                                                            "Authorization": "Bearer " + token,
+                                                        },
+                                                    }
+                                                );
+
+                                                if (response.ok) {
+                                                    setSelectedEvent(null);
+                                                    getEvents();
+                                                }
+                                            }}
+                                        >
+                                            Quitar atleta
+                                        </button>
+                                    </li>
+                                ))}
                         </ol>
                     </div>
                 </div>

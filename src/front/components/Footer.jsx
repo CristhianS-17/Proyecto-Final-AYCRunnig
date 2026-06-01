@@ -1,10 +1,14 @@
 export const Footer = () => {
     return (
-        <footer className="footer">
-            <p>
-                <strong>Run</strong><span className="bound">Bound</span> © 2024 — Corre. Supérate. Conecta.
-            </p>
+        <footer className="footer-custom">
+            <div className="footer-inner">
+                <span className="footer-brand">
+                    <span className="footer-run">Run</span>
+                    <span className="footer-bound">Bound</span>
+                </span>
+                <p className="footer-tagline">Corre. Supérate. Conecta.</p>
+                <p className="footer-copy">© 2024 RunBound. Todos los derechos reservados.</p>
+            </div>
         </footer>
     );
 };
-

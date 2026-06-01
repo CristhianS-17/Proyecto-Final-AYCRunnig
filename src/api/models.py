@@ -14,15 +14,19 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean(), default=True)
     role: Mapped[str] = mapped_column(
-        String(20), nullable=False, default="runner")
-
+        String(20), default="runner", nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean(), default=True)
     first_name: Mapped[str] = mapped_column(String(80), nullable=True)
     last_name: Mapped[str] = mapped_column(String(80), nullable=True)
     gender: Mapped[str] = mapped_column(String(20), nullable=True)
     residence: Mapped[str] = mapped_column(String(120), nullable=True)
+    peso: Mapped[float] = mapped_column(nullable=True)
+    altura: Mapped[float] = mapped_column(nullable=True)
+    profile_picture: Mapped[str] = mapped_column(
+        String(500), nullable=True, default="https://placeholder.co/150")
 
+    # 🔥 RELACIONES UNIFICADAS (Resuelven los bloqueos del panel Admin y Alembic)
     events: Mapped[List["Event"]] = relationship(back_populates="organizer")
     inscriptions: Mapped[List["Inscription"]
                          ] = relationship(back_populates="user")
@@ -37,7 +41,9 @@ class User(db.Model):
             "last_name": self.last_name,
             "gender": self.gender,
             "residence": self.residence,
-            "my_inscriptions": [ins.serialize() for ins in self.inscriptions]
+            "peso": self.peso,
+            "altura": self.altura,
+            "profile_picture": self.profile_picture
         }
 
 
@@ -85,7 +91,7 @@ class Event(db.Model):
                     "first_name": ins.user.first_name,
                     "last_name": ins.user.last_name
                 }
-                for ins in self.participants
+                for ins in self.participants if ins.user
             ]
         }
 

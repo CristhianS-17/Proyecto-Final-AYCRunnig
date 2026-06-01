@@ -6,94 +6,63 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
-CORS(api)
+CORS(api, resources={r"/*": {"origins": "*"}})
 
-
-# RUTAS DE AUTENTICACIÓN Y PERFIL
+# --- RUTAS DE AUTENTICACIÓN Y PERFIL ---
 
 
 @api.route('/register', methods=['POST'])
 def handle_register():
     body = request.get_json()
     if body is None:
-        return jsonify({"msg": "Cuerpo del mensaje vacío"}), 400
-
+        return jsonify({"msg": "Cuerpo vacío"}), 400
     email = body.get("email")
     password = body.get("password")
     role = body.get("role", "runner")
-
     if not email or not password:
-        return jsonify({"msg": "Email y password son obligatorios"}), 400
-
-    user_exists = User.query.filter_by(email=email).first()
-    if user_exists:
-        return jsonify({"msg": "El usuario ya está registrado"}), 400
-
+        return jsonify({"msg": "Email y password obligatorios"}), 400
+    if User.query.filter_by(email=email).first():
+        return jsonify({"msg": "Usuario ya existe"}), 400
     try:
-        secure_password = generate_password_hash(password)
-
-        # 🔥 Guardamos los campos básicos + los nuevos campos de perfil si vienen del Front
         new_user = User(
-            email=email,
-            password=secure_password,
-            role=role,
-            is_active=True,
-            first_name=body.get("first_name"),
-            last_name=body.get("last_name"),
-            gender=body.get("gender"),
-            residence=body.get("residence")
+            email=email, password=generate_password_hash(password), role=role,
+            is_active=True, first_name=body.get("first_name"),
+            last_name=body.get("last_name"), gender=body.get("gender"),
+            residence=body.get("residence"), profile_picture="https://placeholder.co/150"
         )
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"msg": f"Usuario creado con éxito como {role}"}), 201
+        return jsonify({"msg": "Usuario creado"}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({"msg": "Error interno al crear usuario", "error": str(e)}), 500
+        return jsonify({"msg": "Error", "error": str(e)}), 500
 
 
 @api.route('/login', methods=['POST'])
 def handle_login():
     body = request.get_json()
-    if not body:
-        return jsonify({"msg": "Faltan datos"}), 400
-
-    email = body.get("email")
-    password = body.get("password")
-
-    user = User.query.filter_by(email=email).first()
-
-    if user is None or not check_password_hash(user.password, password):
+    user = User.query.filter_by(email=body.get("email")).first()
+    if user is None or not check_password_hash(user.password, body.get("password")):
         return jsonify({"msg": "Credenciales incorrectas"}), 401
-
-    access_token = create_access_token(identity=str(
+    token = create_access_token(identity=str(
         user.id), additional_claims={"role": user.role})
-    return jsonify({"token": access_token, "user": user.serialize()}), 200
+    return jsonify({"token": token, "user": user.serialize()}), 200
 
 
 @api.route('/profile', methods=['GET'])
 @jwt_required()
 def handle_profile():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    if not user:
-        return jsonify({"msg": "Usuario no encontrado"}), 404
-    return jsonify(user.serialize()), 200
+    user = User.query.get(get_jwt_identity())
+    return jsonify(user.serialize()) if user else (jsonify({"msg": "No encontrado"}), 404)
 
 
 @api.route('/profile', methods=['PUT'])
 @jwt_required()
 def update_profile():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-
+    user = User.query.get(get_jwt_identity())
     if not user:
         return jsonify({"msg": "Usuario no encontrado"}), 404
-
     body = request.get_json()
-    if not body:
-        return jsonify({"msg": "Faltan datos para actualizar"}), 400
-
-    # 🔥 El usuario puede actualizar sus datos dinámicamente desde su panel de perfil
     if "first_name" in body:
         user.first_name = body["first_name"]
     if "last_name" in body:
@@ -102,13 +71,27 @@ def update_profile():
         user.gender = body["gender"]
     if "residence" in body:
         user.residence = body["residence"]
-
+    if "peso" in body:
+        user.peso = body["peso"]
+    if "altura" in body:
+        user.altura = body["altura"]
     try:
         db.session.commit()
-        return jsonify({"msg": "Perfil actualizado correctamente", "user": user.serialize()}), 200
+        return jsonify({"msg": "Perfil actualizado", "user": user.serialize()}), 200
     except Exception as e:
         db.session.rollback()
-        return jsonify({"msg": "Error al actualizar el perfil", "error": str(e)}), 500
+        return jsonify({"msg": "Error al actualizar", "error": str(e)}), 500
+
+
+@api.route('/upload-avatar', methods=['POST'])
+@jwt_required()
+def upload_avatar():
+    user = User.query.get(get_jwt_identity())
+    if 'avatar' not in request.files:
+        return jsonify({"msg": "No hay archivo"}), 400
+    user.profile_picture = request.files['avatar'].filename
+    db.session.commit()
+    return jsonify({"msg": "Avatar actualizado"}), 200
 
 
 # RUTAS DE EVENTOS (CRUD)
@@ -214,7 +197,7 @@ def delete_event(event_id):
 
     db.session.delete(event)
     db.session.commit()
-    
+
     return jsonify({"msg": "Evento eliminado correctamente"}), 200
 
 # RUTAS DE INSCRIPCIONES (MANY-TO-MANY)
@@ -268,6 +251,34 @@ def unsubscribe(event_id):
     return jsonify({"msg": "Inscripción cancelada correctamente"}), 200
 
 
+@api.route('/event/<int:event_id>/participant/<int:user_id>', methods=['DELETE'])
+@jwt_required()
+def remove_participant(event_id, user_id):
+
+    current_user_id = get_jwt_identity()
+
+    event = Event.query.get(event_id)
+
+    if not event:
+        return jsonify({"msg": "Evento no encontrado"}), 404
+
+    if event.organizer_id != int(current_user_id):
+        return jsonify({"msg": "No tienes permiso"}), 403
+
+    inscription = Inscription.query.filter_by(
+        user_id=user_id,
+        event_id=event_id
+    ).first()
+
+    if not inscription:
+        return jsonify({"msg": "Participante no encontrado"}), 404
+
+    db.session.delete(inscription)
+    db.session.commit()
+
+    return jsonify({"msg": "Participante eliminado"}), 200
+
+
 @api.route('/my-inscriptions', methods=['GET'])
 @jwt_required()
 def get_my_inscriptions():
@@ -275,3 +286,61 @@ def get_my_inscriptions():
     user_inscriptions = Inscription.query.filter_by(
         user_id=current_user_id).all()
     return jsonify([ins.serialize() for ins in user_inscriptions]), 200
+
+
+@api.route('/forgot-password', methods=['POST'])
+def handle_forgot_password():
+    body = request.get_json()
+    if not body:
+        return jsonify({"msg": "Faltan datos"}), 400
+
+    email = body.get("email")
+    if not email:
+        return jsonify({"msg": "El email es obligatorio"}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({"msg": "Si el correo existe, recibirás un enlace para restablecer tu contraseña."}), 200
+
+    recovery_token = create_access_token(
+        identity=str(user.id),
+        additional_claims={"purpose": "password_recovery"}
+    )
+
+    frontend_url = f"/reset-password?token={recovery_token}"
+
+    print("\n" + "="*60)
+    print("📩 EMAIL SIMULADO: RESTABLECIMIENTO DE CONTRASEÑA")
+    print(f"Para: {email}")
+    print(f"Enlace de simulación (pégalo detrás de tu URL base del Front):")
+    print(frontend_url)
+    print("="*60 + "\n")
+
+    return jsonify({"msg": "Si el correo existe, recibirás un enlace para restablecer tu contraseña."}), 200
+
+
+@api.route('/reset-password', methods=['PUT'])
+@jwt_required()
+def handle_reset_password():
+    current_user_id = get_jwt_identity()
+    body = request.get_json()
+
+    if not body:
+        return jsonify({"msg": "Faltan datos"}), 400
+
+    new_password = body.get("password")
+    if not new_password:
+        return jsonify({"msg": "La nueva contraseña es obligatoria"}), 400
+
+    user = User.query.get(current_user_id)
+    if not user:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    try:
+        user.password = generate_password_hash(new_password)
+        db.session.commit()
+        return jsonify({"msg": "Contraseña actualizada con éxito. Ya puedes iniciar sesión."}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al actualizar la contraseña", "error": str(e)}), 500

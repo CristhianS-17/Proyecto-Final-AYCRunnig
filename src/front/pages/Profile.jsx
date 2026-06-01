@@ -8,7 +8,6 @@ export const Profile = () => {
     const handleAvatarUpload = async (e) => {
         const file = e.target.files[0];
         const token = localStorage.getItem("token");
-
         const formData = new FormData();
         formData.append("avatar", file);
 
@@ -28,45 +27,28 @@ export const Profile = () => {
     useEffect(() => {
         const getProfileData = async () => {
             const token = localStorage.getItem("token");
-
             if (!token) {
                 navigate("/login");
                 return;
             }
 
-            try {
-                const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/profile", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
+            const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/profile", {
+                headers: { "Authorization": "Bearer " + token }
+            });
 
-                const data = await resp.json();
-
-                if (!resp.ok) {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                    return;
-                }
-
-                setUser(data);
-
-            } catch (error) {
-                console.error("Error cargando el perfil:", error);
-            }
+            const data = await resp.json();
+            if (resp.ok) setUser(data);
         };
 
         getProfileData();
     }, [navigate]);
 
-    if (!user) return <div className="container mt-5">Cargando datos del atleta...</div>;
+    if (!user) return <div className="edit-profile-loading">Cargando datos del atleta...</div>;
 
     return (
         <div className="profile-dashboard">
 
-            {/* TARJETA IZQUIERDA: FOTO + INFO */}
+            {/* TARJETA IZQUIERDA */}
             <div className="profile-card">
 
                 <div className="profile-avatar-container">
@@ -75,7 +57,6 @@ export const Profile = () => {
                         alt="avatar"
                         className="profile-avatar"
                     />
-
                 </div>
 
                 <h2 className="profile-name">{user.email}</h2>
@@ -87,10 +68,6 @@ export const Profile = () => {
                     <span className="role-badge">{user.role}</span>
                 </p>
 
-                <p><strong>Peso:</strong> {user.peso || "—"} kg</p>
-
-                <p><strong>Altura:</strong> {user.altura || "—"} cm</p>
-
                 <p>
                     <strong>Estado:</strong>
                     {user.is_active ? "🟢 Activa" : "🔴 Inactiva"}
@@ -101,6 +78,15 @@ export const Profile = () => {
                     {user.my_inscriptions?.length || 0}
                 </p>
 
+                <p>
+                    <strong>Peso:</strong> {user.peso || "—"} kg
+                </p>
+
+                <p>
+                    <strong>Altura:</strong> {user.altura || "—"} cm
+                </p>
+
+                {/* BOTÓN ABAJO */}
                 <button
                     className="btn-edit-profile"
                     onClick={() => navigate("/edit-profile")}
@@ -108,42 +94,9 @@ export const Profile = () => {
                     Editar perfil
                 </button>
 
-                {/* LISTA DE INSCRIPCIONES */}
-                {user.my_inscriptions?.map((inscription) => (
-                    <div key={inscription.id} className="event-card">
-                        <h3>{inscription.event?.title}</h3>
-                        <p>{inscription.event?.location_name}</p>
-                        <p>Hora inicio: {inscription.event?.start_time}</p>
-
-                        <button
-                            className="unsubscribe-button"
-                            onClick={async () => {
-                                const token = localStorage.getItem("token");
-
-                                const response = await fetch(
-                                    import.meta.env.VITE_BACKEND_URL +
-                                    "/unsubscribe/" +
-                                    inscription.event_id,
-                                    {
-                                        method: "DELETE",
-                                        headers: {
-                                            "Authorization": "Bearer " + token,
-                                        },
-                                    }
-                                );
-
-                                if (response.ok) {
-                                    window.location.reload();
-                                }
-                            }}
-                        >
-                            Cancelar inscripción
-                        </button>
-                    </div>
-                ))}
             </div>
 
-            {/* TARJETA DERECHA: ESTADÍSTICAS + GRÁFICOS */}
+            {/* TARJETA DERECHA */}
             <div className="profile-stats">
 
                 <h3>Estadísticas del Atleta</h3>
@@ -173,7 +126,7 @@ export const Profile = () => {
                 <h3 className="chart-title">Progreso semanal</h3>
 
                 <div className="chart-placeholder">
-
+                
                 </div>
 
             </div>

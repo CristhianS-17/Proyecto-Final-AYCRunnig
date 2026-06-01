@@ -169,7 +169,15 @@ export const AdminDashboard = () => {
 
                         <p>
                             <strong>Cierre:</strong>{" "}
-                            {event.registration_deadline || "No indicado"}
+                            {event.registration_deadline
+                                ? new Date(event.registration_deadline).toLocaleString("es-ES", {
+                                    day: "2-digit",
+                                    month: "2-digit",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit"
+                                })
+                                : "No indicado"}
                         </p>
 
                         {renderCountdown(event.registration_deadline)}

@@ -1,26 +1,10 @@
 import { Link } from "react-router-dom";
 import atleta from "../assets/atleta.png";
 import atleta2 from "../assets/atleta2.png";
-<<<<<<< HEAD
-import { useEffect, useRef } from "react";
-=======
->>>>>>> main
 
 export const Home = () => {
   const sectionsRef = useRef([]);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.15 }
-=======
             <h1 className="home-title">
                 Bienvenido a <span className="run">Run</span><span className="bound">Bound</span>
             </h1>
@@ -62,7 +46,6 @@ export const Home = () => {
             </div>
 
         </div>
->>>>>>> main
     );
 
     sectionsRef.current.forEach((el) => el && observer.observe(el));

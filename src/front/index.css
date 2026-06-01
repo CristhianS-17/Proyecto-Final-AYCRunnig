@@ -510,12 +510,6 @@ cite {
     order: unset;
   }
 
-<<<<<<< HEAD
-  blockquote {
-    font-size: 1.6rem;
-  }
-}
-=======
 .btn-login {
   padding: 12px 24px;
   border-radius: 6px;
@@ -584,7 +578,6 @@ cite {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
->>>>>>> main
 /* === LOGIN HOME === */
 .btn-beige {
   background: black;

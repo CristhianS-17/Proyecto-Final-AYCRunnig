@@ -41,12 +41,6 @@ export const Navbar = () => {
                     {isLoggedIn && (
                         <>
                             <Link to="/map">Mapa</Link>
-<<<<<<< HEAD
-                            <Link to="/organizer">Crear Evento</Link>
-                            {role === "admin" && <Link to="/admin">Admin</Link>}
-                            <Link to="/profile">Perfil</Link>
-                            <button className="btn-nav-logout" onClick={handleLogout}>
-=======
                             <Link to="/profile">Perfil</Link>
 
                             {role === "organizer" && (
@@ -61,7 +55,6 @@ export const Navbar = () => {
                                 className="btn btn-danger btn-sm"
                                 onClick={handleLogout}
                             >
->>>>>>> main
                                 Logout
                             </button>
                         </>

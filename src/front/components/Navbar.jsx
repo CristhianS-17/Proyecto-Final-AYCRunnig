@@ -52,7 +52,7 @@ export const Navbar = () => {
 
 
                             <button
-                                className="btn btn-danger btn-sm"
+                                className="btn-logout"
                                 onClick={handleLogout}
                             >
                                 Logout

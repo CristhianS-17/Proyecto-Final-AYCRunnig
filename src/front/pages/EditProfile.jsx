@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bg from "../assets/img-yrp/7.jpeg";
 
 export const EditProfile = () => {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ export const EditProfile = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-        
+
         const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/profile", {
             method: "PUT",
             headers: {
@@ -66,37 +67,41 @@ export const EditProfile = () => {
     if (!user) return <div className="edit-profile-loading">Cargando...</div>;
 
     return (
-        <div className="edit-profile-container">
-            <h2 className="edit-title">Editar Perfil</h2>
-            <div className="edit-card">
-                
-                {/* SECCIÓN FOTO (RECUPERADA) */}
-                <div className="edit-avatar-section">
-                    <img src={user.avatar || "https://cdn-icons-png.flaticon.com/512/847/847969.png"} alt="avatar" className="edit-avatar" />
-                    <label className="upload-photo-btn">
-                        Cambiar foto
-                        <input type="file" className="avatar-input" onChange={handleAvatarUpload} />
-                    </label>
+        <div className="profile-bg" style={{ backgroundImage: `url(${bg})` }}>
+            <div className="profile-wrapper">
+                <div className="edit-profile-container">
+                    <h2 className="edit-title">Editar Perfil</h2>
+                    <div className="edit-card">
+
+                        {/* SECCIÓN FOTO (RECUPERADA) */}
+                        <div className="edit-avatar-section">
+                            <img src={user.avatar || "https://cdn-icons-png.flaticon.com/512/847/847969.png"} alt="avatar" className="edit-avatar" />
+                            <label className="upload-photo-btn">
+                                Cambiar foto
+                                <input type="file" className="avatar-input" onChange={handleAvatarUpload} />
+                            </label>
+                        </div>
+
+                        {/* FORMULARIO */}
+                        <form className="edit-form" onSubmit={handleSave}>
+                            <label>Residencia</label>
+                            <input name="residencia" defaultValue={user.residencia} onChange={handleChange} />
+
+                            <label>Sexo</label>
+                            <input name="sexo" defaultValue={user.sexo} onChange={handleChange} />
+
+                            <label>Peso (kg)</label>
+                            <input name="peso" type="number" defaultValue={user.peso} onChange={handleChange} />
+
+                            <label>Altura (cm)</label>
+                            <input name="altura" type="number" defaultValue={user.altura} onChange={handleChange} />
+
+                            <button type="submit" className="save-btn">Guardar cambios</button>
+                        </form>
+
+                        <button className="back-btn" onClick={() => navigate("/profile")}>Volver al perfil</button>
+                    </div>
                 </div>
-
-                {/* FORMULARIO */}
-                <form className="edit-form" onSubmit={handleSave}>
-                    <label>Residencia</label>
-                    <input name="residencia" defaultValue={user.residencia} onChange={handleChange} />
-                    
-                    <label>Sexo</label>
-                    <input name="sexo" defaultValue={user.sexo} onChange={handleChange} />
-                    
-                    <label>Peso (kg)</label>
-                    <input name="peso" type="number" defaultValue={user.peso} onChange={handleChange} />
-                    
-                    <label>Altura (cm)</label>
-                    <input name="altura" type="number" defaultValue={user.altura} onChange={handleChange} />
-
-                    <button type="submit" className="save-btn">Guardar cambios</button>
-                </form>
-                
-                <button className="back-btn" onClick={() => navigate("/profile")}>Volver al perfil</button>
             </div>
         </div>
     );

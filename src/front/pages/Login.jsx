@@ -20,15 +20,15 @@ export const Login = () => {
 
         try {
             const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: form.email,
-                        password: form.password
-                    })
-                }
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: form.email,
+                    password: form.password
+                })
+            }
             );
 
             if (!response.ok) {
@@ -44,7 +44,7 @@ export const Login = () => {
             localStorage.setItem("user_id", data.user.id);
 
             // Redirección por rol
-           if (data.user.role === "runner"){
+            if (data.user.role === "runner") {
                 navigate("/profile");
             }
 
@@ -59,51 +59,53 @@ export const Login = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <h1>Login</h1>
+        <div className="login-bg">
+            <div className="login-card">
+                <h1>Login</h1>
 
-            {message && <div className="alert alert-danger">{message}</div>}
+                {message && <div className="alert alert-danger">{message}</div>}
 
-            <form onSubmit={handleLogin} className="mt-4">
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                <form onSubmit={handleLogin} className="mt-4">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <button className="btn-beige w-100">Ingresar</button>
+                    <button className="btn-beige w-100">Ingresar</button>
 
-                <div className="text-center mt-2">
-                    <button
-                        type="button"
-                        className="btn btn-link"
-                        onClick={() => navigate("/forgot-password")}
-                    >
-                        ¿Has olvidado tu contraseña?
-                    </button>
-                </div>
+                    <div className="text-center mt-2">
+                        <button
+                            type="button"
+                            className="btn btn-link"
+                            onClick={() => navigate("/forgot-password")}
+                        >
+                            ¿Has olvidado tu contraseña?
+                        </button>
+                    </div>
 
-                <div className="text-center mt-3">
-                    <p>¿No tienes cuenta?</p>
-                    <button
-                        type="button"
-                        className="btn btn-link"
-                        onClick={() => navigate("/register")}
-                    >
-                        Regístrate aquí
-                    </button>
-                </div>
-            </form>
+                    <div className="text-center mt-3">
+                        <p>¿No tienes cuenta?</p>
+                        <button
+                            type="button"
+                            className="btn btn-link"
+                            onClick={() => navigate("/register")}
+                        >
+                            Regístrate aquí
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

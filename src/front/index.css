@@ -233,8 +233,6 @@ body {
     background-color: #dacab0;
 }
 
-
-/* Stats */
 .hero-stats {
   display: flex;
   gap: 0;
@@ -472,6 +470,54 @@ cite {
   text-decoration: underline !important;
 }
 
+/* Fondo completo del login */
+.login-bg {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("./assets/img-yrp/4.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Tarjeta del formulario */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  color: white;
+  text-align: center;
+}
+
+/* === LOGOUT === */
+
+.btn-logout {
+  background: #B8AA92;
+  color: black !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  border: none !important; 
+}
+
+.btn-logout:hover {
+  background: #dacab0;
+  color: black;
+}
+
 /* === INGRESAR === */
 .btn-success {
   background-color: #B8AA92 !important;
@@ -484,6 +530,40 @@ cite {
   background-color: #dacab0 !important;
   border-color: #dacab0 !important;
 }
+
+/* === MAP === */
+
+/* Fondo general */
+.map-bg {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* Contenedor glassmorphism */
+.map-wrapper {
+  width: 100%;
+  max-width: 1200px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
 
 /* === REGISTRO === */
 .register-page {
@@ -635,6 +715,22 @@ cite {
   display: none;
 }
 
+/* FONDO GENERAL DEL PROFILE */
+.profile-bg {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px; 
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
 /* EDITPROFILE */
 
 .edit-profile-container {
@@ -644,6 +740,19 @@ cite {
   padding-top: 120px;
   padding-bottom: 80px;
 }
+
+.profile-wrapper {
+  width: 100%;
+  max-width: 750px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+
 
 /* TÍTULO */
 .edit-title {

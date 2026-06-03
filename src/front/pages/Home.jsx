@@ -38,9 +38,9 @@ export const Home = () => {
                         <span className="word-bound">Bound</span>
                     </h1>
                     <p className="hero-subtitle">
-                        Explora eventos deportivos, encuentra tu próxima carrera y sigue tu
-                        progreso en el mapa interactivo.
+                        Explora eventos deportivos, encuentra tu próxima carrera en el mapa interactivo.
                     </p>
+
                     <div className="hero-actions">
                         <Link to="/register" className="hero-btn">
                             Comenzar ahora
@@ -81,7 +81,7 @@ export const Home = () => {
                     </blockquote>
                     <cite>— Jim Ryun</cite>
                     <p className="quote-desc">
-                        Cada entrenamiento cuenta. RunBound te ayuda a mantener el ritmo con seguimiento en tiempo real y comunidad activa.
+                        Tu ciudad, tu meta, tu equipo. Encuentra tu próxima carrera.
                     </p>
                 </div>
                 <div className="quote-image-wrap">
@@ -101,7 +101,7 @@ export const Home = () => {
                     </blockquote>
                     <cite>— Paula Radcliffe</cite>
                     <p className="quote-desc">
-                        Registra tus tiempos, comparte tus rutas y compite con corredores de todo el mundo desde tu ciudad.
+                        Deja de correr solo. Descubre eventos locales, únete a la comunidad de corredores de tu zona y lleva el control de tus propios retos.
                     </p>
                 </div>
             </section>

@@ -114,8 +114,6 @@ body {
 }
 
 /* === HOME === */
-
-/* ── BASE ─────────────────────────────── */
 .home-container {
   flex: 1;
   width: 100%;
@@ -127,9 +125,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
 .hero-section {
   min-height: 100vh;
   display: grid;
@@ -146,7 +141,6 @@ body {
   );
 }
 
-/* Fade-in animation */
 .hero-text,
 .hero-stats,
 .quote-section,
@@ -361,9 +355,6 @@ body {
   filter: brightness(1) contrast(1.05);
 }
 
-
-
-/* Quote text */
 .quote-content {
   max-width: 480px;
 }
@@ -404,9 +395,6 @@ cite {
   font-weight: 300;
 }
 
-/* ══════════════════════════════════════
-   CTA FINAL
-══════════════════════════════════════ */
 .cta-section {
   padding: 140px 8%;
   background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.8));
@@ -439,10 +427,10 @@ cite {
 
 /* ── RESPONSIVE ───────────────────────── */
 @media (max-width: 768px) {
-    .hero-section {
-        padding: 120px 6% 60px;
-    }
-}
+  .hero-section {
+    padding: 120px 6% 60px;
+  }
+
   .quote-section,
   .quote-section.reverse {
     grid-template-columns: 1fr;
@@ -454,6 +442,35 @@ cite {
   .quote-section.reverse .quote-content {
     order: unset;
   }
+}
+
+/* === LOGIN === */
+
+.btn-beige {
+  background: #B8AA92;
+  color: black !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  border: none !important;            
+}
+
+.btn-beige:hover {
+  background: #dacab0;
+}
+
+.btn-link {
+  color: #B8AA92 !important; 
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.btn-link:hover {
+  color: #dacab0 !important;
+  text-decoration: underline !important;
+}
 
 /* === INGRESAR === */
 .btn-success {

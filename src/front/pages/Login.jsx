@@ -81,7 +81,7 @@ export const Login = () => {
                     onChange={handleChange}
                 />
 
-                <button className="btn btn-primary w-100">Ingresar</button>
+                <button className="btn-beige w-100">Ingresar</button>
 
                 <div className="text-center mt-2">
                     <button

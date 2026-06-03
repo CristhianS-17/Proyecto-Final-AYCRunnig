@@ -6,7 +6,7 @@ export const Navbar = () => {
     const navigate = useNavigate();
     const isLoggedIn = !!localStorage.getItem("token");
     const role = localStorage.getItem("role");
-    const [scrolled, setScrolled] = useState(false);
+    const [scrolled, setScrolled] = useState(true);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 40);

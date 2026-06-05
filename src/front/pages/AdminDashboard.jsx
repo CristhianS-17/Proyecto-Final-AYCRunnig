@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import "../styles/AdminDashboard.css";
 import backgroundImage from "../assets/img-yrp/6.jpeg";
+import { useNavigate } from "react-router-dom";
 
 export const AdminDashboard = () => {
+    const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [now, setNow] = useState(new Date());
@@ -12,18 +14,27 @@ export const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState("todos");
 
     const getEvents = async () => {
-        const response = await fetch(
-            import.meta.env.VITE_BACKEND_URL + "/events"
-        );
+        try {
+            const response = await fetch(
+                import.meta.env.VITE_BACKEND_URL + "/events"
+            );
 
-        const data = await response.json();
-        const userId = localStorage.getItem("user_id");
+            if (!response.ok) {
+                console.error("Error en el servidor:", response.status);
+                return;
+            }
 
-        const myEvents = data.filter((event) => {
-            return event.organizer_id === Number(userId);
-        });
+            const data = await response.json();
+            const userId = localStorage.getItem("user_id");
 
-        setEvents(myEvents);
+            const myEvents = data.filter((event) => {
+                return event.organizer_id === Number(userId);
+            });
+
+            setEvents(myEvents);
+        } catch (error) {
+            console.error("El backend no responde:", error);
+        }
     };
 
     // Y.R.P - Calcula el tiempo restante hasta el cierre de inscripción
@@ -175,6 +186,17 @@ export const AdminDashboard = () => {
                         {renderCountdown(event.registration_deadline)}
                     </div>
                 ))}
+            </div>
+
+            <div className="create-event-section" style={{ marginTop: "40px", textAlign: "center", paddingBottom: "40px" }}>
+                <p>¿Quieres organizar una nueva carrera?</p>
+                <button
+                    className="btn-create-event"
+                    onClick={() => navigate("/organizer")}
+                    style={{ padding: " 10px 20px", cursor: "pointer" }}
+                >
+                    Crear Evento
+                </button>
             </div>
 
             {selectedEvent && (

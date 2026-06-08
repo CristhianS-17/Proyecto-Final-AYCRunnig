@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 import backgroundImage from "../assets/img-yrp/6.jpeg";
 import { useNavigate } from "react-router-dom";

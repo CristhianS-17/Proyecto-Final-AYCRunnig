@@ -286,7 +286,7 @@ export const EventForm = ({
 
                     {!editingEvent && (
                         <p className="event-form-note">
-                            Una vez creado, podrás gestionar este evento desde la sección Admin.
+                            Una vez creado, podrás gestionar este evento desde la sección "Eventos".
                         </p>
                     )}
 

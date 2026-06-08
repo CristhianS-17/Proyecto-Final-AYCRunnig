@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 import backgroundImage from "../assets/img-yrp/6.jpeg";
 
 export const AdminDashboard = () => {
+    const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [now, setNow] = useState(new Date());
@@ -144,11 +146,26 @@ export const AdminDashboard = () => {
                 backgroundImage: `url(${backgroundImage})`,
             }}
         >
-            <h1 className="dashboard-title">Panel del Organizador</h1>
+
+
+            <div className="dashboard-header">
+                <h1 className="dashboard-title">
+                    Panel del Organizador
+                </h1>
+
+                <button
+                    className="create-event-dashboard-button"
+                    onClick={() => navigate("/organizer")}
+                >
+                    + Crear nuevo evento
+                </button>
+            </div>
 
             <p className="dashboard-description">
                 Consulta el estado de tus eventos y las inscripciones.
             </p>
+
+            
 
             <div className="admin-cards">
                 {events.map((event) => (

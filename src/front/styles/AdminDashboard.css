@@ -500,3 +500,54 @@
   background: #786652;
   color: white;
 }
+
+/* =====================================================
+   Y.R.P
+   Botón principal para acceder al formulario de creación.
+
+   Permite:
+   - Crear nuevos eventos
+===================================================== */
+
+.create-event-dashboard-button {
+  background: #B8AA92;
+  color: #1F1F1F;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 24px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  margin-bottom: 25px;
+
+  transition: 0.25s ease;
+}
+
+.create-event-dashboard-button:hover {
+  background: #DACAB0;
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   Y.R.P
+   Cabecera superior del panel.
+
+   Permite:
+   - Colocar título y botón en la misma línea
+===================================================== */
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.dashboard-header .create-event-dashboard-button {
+  margin-left: 180px;
+}

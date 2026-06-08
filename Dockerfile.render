@@ -6,8 +6,6 @@ RUN apt update \
     && apt update \
     && apt install python3.10
 
-RUN pip install pipenv
-
 WORKDIR /opt/app
 COPY --from=build /opt/app/venv /venv
 

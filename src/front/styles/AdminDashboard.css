@@ -511,7 +511,7 @@
 
 .create-event-dashboard-button {
   background: #B8AA92;
-  color: #1F1F1F;
+  color: #fbf8f8;
 
   border: none;
   border-radius: 12px;
@@ -550,4 +550,22 @@
 
 .dashboard-header .create-event-dashboard-button {
   margin-left: 180px;
+}
+
+/* =====================================================
+   Y.R.P
+   Fila descriptiva del panel.
+
+   Permite:
+   - Texto a la izquierda
+   - Botón totalmente a la derecha
+===================================================== */
+
+.dashboard-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin-bottom: 25px;
 }

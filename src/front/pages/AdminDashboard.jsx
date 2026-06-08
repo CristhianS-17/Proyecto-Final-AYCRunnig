@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/AdminDashboard.css";
 import backgroundImage from "../assets/img-yrp/6.jpeg";
+import { useNavigate } from "react-router-dom";
 
 export const AdminDashboard = () => {
     const navigate = useNavigate();

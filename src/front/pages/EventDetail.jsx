@@ -23,23 +23,36 @@ export const EventDetail = () => {
 
         if (!token) return;
 
-        const response = await fetch(
-            import.meta.env.VITE_BACKEND_URL + "/my-inscriptions",
-            {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + token,
-                },
+        try {
+            const response = await fetch(
+                import.meta.env.VITE_BACKEND_URL + "/my-inscriptions",
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                console.warn("No se pudieron cargar inscripciones.");
+                return;
             }
-        );
 
-        const data = await response.json();
+            const data = await response.json();
 
-        const alreadySubscribed = data.some(
-            (inscription) => inscription.event_id === Number(id)
-        );
+            if (Array.isArray(data)) {
+                const alreadySubscribed = data.some(
+                    (inscription) => inscription.event_id === Number(id)
+                );
+                setIsSubscribed(alreadySubscribed);
+            } else {
+                console.error("El formato de los datos no es un array:", data)
+            }
 
-        setIsSubscribed(alreadySubscribed);
+        } catch (error) {
+            console.error("Error al conectar con el servidor:", error);
+        }
     };
 
     useEffect(() => {

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bg from "../assets/img-yrp/2.jpeg";
+
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -45,81 +47,83 @@ export const Register = () => {
     };
 
     return (
-        <div className="container mt-5 register-page">
-            <h1>Registro</h1>
+        <div className="login-bg" style={{ backgroundImage: `url(${bg})` }}>
+            <div className="login-card">
+                <h1>Registro</h1>
 
-            <form onSubmit={handleSubmit} className="mt-4">
+                <form onSubmit={handleSubmit} className="mt-4">
 
-                <input
-                    type="text"
-                    name="first_name"
-                    placeholder="Nombre"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="text"
+                        name="first_name"
+                        placeholder="Nombre"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="text"
-                    name="last_name"
-                    placeholder="Apellido"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="text"
+                        name="last_name"
+                        placeholder="Apellido"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <label className="form-label">Fecha de nacimiento</label>
-                <input
-                    type="date"
-                    name="fecha_nacimiento"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <label className="form-label">Fecha de nacimiento</label>
+                    <input
+                        type="date"
+                        name="fecha_nacimiento"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <select
-                    name="gender"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                >
-                    <option value="">Selecciona tu sexo</option>
-                    <option value="femenino">Femenino</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="otro">Otro</option>
-                </select>
+                    <select
+                        name="gender"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    >
+                        <option value="">Selecciona tu sexo</option>
+                        <option value="femenino">Femenino</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="otro">Otro</option>
+                    </select>
 
-                <input
-                    type="text"
-                    name="residence"
-                    placeholder="Lugar de residencia"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="text"
+                        name="residence"
+                        placeholder="Lugar de residencia"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    className="form-control mb-3"
-                    onChange={handleChange}
-                />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        className="form-control mb-3"
+                        onChange={handleChange}
+                    />
 
-                <select
-                    name="role"
-                    className="form-control mb-5"
-                    onChange={handleChange}
-                >
-                    <option value="runner">Atleta</option>
-                    <option value="organizer">Organizador</option>
-                </select>
+                    <select
+                        name="role"
+                        className="form-control mb-5"
+                        onChange={handleChange}
+                    >
+                        <option value="runner">Atleta</option>
+                        <option value="organizer">Organizador</option>
+                    </select>
 
-                <button className="btn btn-success w-100">Registrarse</button>
-            </form>
+                    <button className="btn btn-success w-100">Registrarse</button>
+                </form>
+            </div>
         </div>
-    );
+            );
 };

@@ -44,10 +44,7 @@ export const Navbar = () => {
                             <Link to="/profile">Perfil</Link>
 
                             {role === "organizer" && (
-                                <>
-
-                                    <Link to="/events">Eventos</Link>
-                                </>
+                                <Link to="/admin">Eventos</Link>
                             )}
 
 

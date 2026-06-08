@@ -19,7 +19,7 @@ export const OrganizerDashboard = () => {
             </h1>
 
             <p className="dashboard-description">
-                Crea tus eventos deportivos. Podrás gestionarlos después desde la sección Admin.
+                Crea tus eventos deportivos. Podrás gestionarlos después desde la sección "Eventos".
             </p>
 
             <EventForm

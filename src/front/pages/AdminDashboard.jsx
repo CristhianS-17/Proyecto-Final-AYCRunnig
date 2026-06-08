@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 import backgroundImage from "../assets/img-yrp/6.jpeg";
 import { useNavigate } from "react-router-dom";
@@ -155,11 +156,26 @@ export const AdminDashboard = () => {
                 backgroundImage: `url(${backgroundImage})`,
             }}
         >
-            <h1 className="dashboard-title">Panel del Organizador</h1>
+
+
+            <div className="dashboard-header">
+                <h1 className="dashboard-title">
+                    Panel del Organizador
+                </h1>
+
+                <button
+                    className="create-event-dashboard-button"
+                    onClick={() => navigate("/organizer")}
+                >
+                    + Crear nuevo evento
+                </button>
+            </div>
 
             <p className="dashboard-description">
                 Consulta el estado de tus eventos y las inscripciones.
             </p>
+
+            
 
             <div className="admin-cards">
                 {events.map((event) => (
@@ -180,7 +196,15 @@ export const AdminDashboard = () => {
 
                         <p>
                             <strong>Cierre:</strong>{" "}
-                            {event.registration_deadline || "No indicado"}
+                            {event.registration_deadline
+                                ? new Date(event.registration_deadline).toLocaleString("es-ES", {
+                                    day: "2-digit",
+                                    month: "2-digit",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit"
+                                })
+                                : "No indicado"}
                         </p>
 
                         {renderCountdown(event.registration_deadline)}

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import bg from "../assets/img-yrp/4.jpeg";
+
 
 // Fix para que los iconos de Leaflet se vean bien en React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -34,105 +36,107 @@ export function MapView() {
   }, []);
 
   return (
-    <div style={{ height: "100vh", width: "100%", marginTop: "30px" }}>
-      <MapContainer
-        center={[40.4168, -3.7038]}
-        zoom={6}
-        style={{
-          height: "100%",
-          width: "100%",
-          borderRadius: "12px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
-        }}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-        {events.map((event) => (
-          <Marker
-            key={event.id}
-            position={[
-              Number(event.latitude),
-              Number(event.longitude)
-            ]}
-            eventHandlers={{
-              click: () => setSelectedEvent(event),
-              mouseover: (e) => e.target.openPopup(),
-              mouseout: (e) => e.target.closePopup(),
-            }}
-          >
-            <Popup>
-              <strong>{event.title}</strong>
-              <br />
-              {event.location_name}
-              <br />
-              {event.date}
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-
-      {selectedEvent && (
-        <div
+    <div className="map-bg" style={{ backgroundImage: `url(${bg})` }}>
+      <div className="map-wrapper">
+        <MapContainer
+          center={[40.4168, -3.7038]}
+          zoom={6}
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 999,
-            animation: "fadeIn 0.2s ease"
+            height: "70vh",
+            width: "100%",
+            borderRadius: "12px",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
           }}
-          onClick={() => setSelectedEvent(null)}
         >
-          <div
-            style={{
-              background: "white",
-              padding: "25px",
-              borderRadius: "12px",
-              width: "320px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-              animation: "scaleIn 0.2s ease"
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2>{selectedEvent.title}</h2>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            <p>
-              <strong>Location:</strong> {selectedEvent.location_name}
-            </p>
-
-            <p>
-              <strong>Date:</strong> {selectedEvent.date}
-            </p>
-
-            <p>
-              <strong>Description:</strong> {selectedEvent.description}
-            </p>
-
-            <button
-              style={{
-                width: "100%",
-                padding: "10px",
-                background: "#111",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                marginTop: "10px"
-              }}
-              onClick={() => {
-                window.location.href = `/event/${selectedEvent.id}`;
+          {events.map((event) => (
+            <Marker
+              key={event.id}
+              position={[
+                Number(event.latitude),
+                Number(event.longitude)
+              ]}
+              eventHandlers={{
+                click: () => setSelectedEvent(event),
+                mouseover: (e) => e.target.openPopup(),
+                mouseout: (e) => e.target.closePopup(),
               }}
             >
-              Ver detalles
-            </button>                     
+              <Popup>
+                <strong>{event.title}</strong>
+                <br />
+                {event.location_name}
+                <br />
+                {event.date}
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+
+        {selectedEvent && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0,0,0,0.6)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 999,
+              animation: "fadeIn 0.2s ease"
+            }}
+            onClick={() => setSelectedEvent(null)}
+          >
+            <div
+              style={{
+                background: "white",
+                padding: "25px",
+                borderRadius: "12px",
+                width: "320px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                animation: "scaleIn 0.2s ease"
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2>{selectedEvent.title}</h2>
+
+              <p>
+                <strong>Location:</strong> {selectedEvent.location_name}
+              </p>
+
+              <p>
+                <strong>Date:</strong> {selectedEvent.date}
+              </p>
+
+              <p>
+                <strong>Description:</strong> {selectedEvent.description}
+              </p>
+
+              <button
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  background: "#111",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  marginTop: "10px"
+                }}
+                onClick={() => {
+                  window.location.href = `/event/${selectedEvent.id}`;
+                }}
+              >
+                Ver detalles
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

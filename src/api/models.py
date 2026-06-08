@@ -21,6 +21,8 @@ class User(db.Model):
     last_name: Mapped[str] = mapped_column(String(80), nullable=True)
     gender: Mapped[str] = mapped_column(String(20), nullable=True)
     residence: Mapped[str] = mapped_column(String(120), nullable=True)
+    peso: Mapped[float] = mapped_column(nullable=True)
+    altura: Mapped[float] = mapped_column(nullable=True)
     profile_picture: Mapped[str] = mapped_column(
         String(500), nullable=True, default="https://placeholder.co/150")
 
@@ -39,6 +41,8 @@ class User(db.Model):
             "last_name": self.last_name,
             "gender": self.gender,
             "residence": self.residence,
+            "peso": self.peso,
+            "altura": self.altura,
             "profile_picture": self.profile_picture
         }
 

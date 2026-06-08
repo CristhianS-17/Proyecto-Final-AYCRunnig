@@ -30,7 +30,7 @@ export const router = createBrowserRouter(
             <Route path="map" element={<MapView />} />
             <Route path="event/:id" element={<EventDetail />} />
             <Route path="organizer" element={<OrganizerDashboard />} />
-            <Route path="admin" element={<AdminDashboard />} />
+            <Route path="/events" element={<AdminDashboard />} />
         </Route>
     )
 );
